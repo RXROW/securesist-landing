@@ -1,0 +1,130 @@
+ 
+import { Users, Target, BarChart3, CheckCircle, Sparkles } from 'lucide-react';
+
+export const KeyBenefits = () => {
+  const benefits = [
+    {
+      icon: Users,
+      title: "Understandable Training",
+      description: "Short, interactive lessons that keep employees engaged and help them remember what really matters.",
+      color: "blue",
+      gradient: "from-blue-500 to-cyan-500",
+      bgGradient: "from-blue-50 to-cyan-50",
+      iconBg: "bg-blue-100",
+      iconColor: "text-blue-600",
+      features: ["5-10 min modules", "Interactive scenarios", "Gamified learning"]
+    },
+    {
+      icon: Target,
+      title: "Fits Each Role",
+      description: "Content tailored to different jobs, so every employee learns the skills most relevant to their work.",
+      color: "purple",
+      gradient: "from-purple-500 to-pink-500",
+      bgGradient: "from-purple-50 to-pink-50",
+      iconBg: "bg-purple-100",
+      iconColor: "text-purple-600",
+      features: ["Role-based content", "Personalized paths", "Industry-specific"]
+    },
+    {
+      icon: BarChart3,
+      title: "Clear Reports & Insights",
+      description: "See who's improving, spot weak points, and track overall progress with simple dashboards.",
+      color: "green",
+      gradient: "from-green-500 to-emerald-500",
+      bgGradient: "from-green-50 to-emerald-50",
+      iconBg: "bg-green-100",
+      iconColor: "text-green-600",
+      features: ["Real-time analytics", "Risk assessment", "Compliance tracking"]
+    }
+  ];
+
+  return (
+    <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-blue-50/30 overflow-hidden">
+      {/* Background decorations */}
+      <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
+      <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }} />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Section Header */}
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full text-sm font-semibold text-blue-700 mb-4">
+            <Sparkles className="h-4 w-4" />
+            Why Choose SECURESIST
+          </div>
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900">
+            Key <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Benefits</span>
+          </h2>
+          <p className="mt-4 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
+            Transform your cybersecurity training with our innovative approach designed for the modern workforce
+          </p>
+        </div>
+        
+        {/* Benefits Grid */}
+        <div className="grid gap-8 md:grid-cols-3 max-w-7xl mx-auto">
+          {benefits.map((benefit, index) => {
+            const Icon = benefit.icon;
+            return (
+              <div
+                key={index}
+                className="group relative"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {/* Card */}
+                <div className="relative h-full bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-slate-200 hover:border-transparent overflow-hidden">
+                  {/* Gradient overlay on hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${benefit.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                  
+                  {/* Animated border gradient */}
+                  <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${benefit.gradient} p-[2px]`}>
+                    <div className="h-full w-full rounded-3xl bg-white" />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative p-8 space-y-6">
+                    {/* Icon */}
+                    <div className={`inline-flex items-center justify-center w-16 h-16 ${benefit.iconBg} rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-md`}>
+                      <Icon className={`h-8 w-8 ${benefit.iconColor}`} />
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-2xl font-bold text-slate-900 group-hover:text-slate-800 transition-colors">
+                      {benefit.title}
+                    </h3>
+                    
+                    {/* Description */}
+                    <p className="text-slate-600 group-hover:text-slate-700 leading-relaxed transition-colors">
+                      {benefit.description}
+                    </p>
+                    
+                    {/* Features list */}
+                    <div className="space-y-2 pt-4 border-t border-slate-100">
+                      {benefit.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm text-slate-600 group-hover:text-slate-700 transition-colors">
+                          <CheckCircle className={`h-4 w-4 ${benefit.iconColor} flex-shrink-0`} />
+                          <span>{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Bottom accent */}
+                  <div className={`h-1 w-0 group-hover:w-full transition-all duration-500 bg-gradient-to-r ${benefit.gradient}`} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        
+        {/* Bottom CTA */}
+        <div className="mt-16 text-center">
+          <p className="text-slate-600 mb-6">Ready to elevate your security posture?</p>
+          <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
+            Get Started Today
+            <CheckCircle className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+     
+    </section>
+  );
+}
