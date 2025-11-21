@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { motion } from "motion/react";
 import DottedMap from "dotted-map";
 
@@ -19,31 +19,39 @@ export function WorldMap({
   lineColor = "#0ea5e9",
 }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const map = new DottedMap({ height: 100, grid: "diagonal" });
-
   const { theme } = useTheme();
 
-  const svgMap = map.getSVG({
-    radius: 0.22,
-    color: theme === "dark" ? "#FFFFFF40" : "#00000040",
-    shape: "circle",
-    backgroundColor: theme === "dark" ? "black" : "white",
-  });
+  // Memoize expensive DottedMap creation
+  const svgMap = useMemo(() => {
+    const map = new DottedMap({ height: 100, grid: "diagonal" });
+    return map.getSVG({
+      radius: 0.22,
+      color: theme === "dark" ? "#FFFFFF40" : "#00000040",
+      shape: "circle",
+      backgroundColor: theme === "dark" ? "black" : "white",
+    });
+  }, [theme]);
 
+  // Helper functions (not memoized as they're simple)
   const projectPoint = (lat: number, lng: number) => {
     const x = (lng + 180) * (800 / 360);
     const y = (90 - lat) * (400 / 180);
     return { x, y };
   };
 
-  const createCurvedPath = (
-    start: { x: number; y: number },
-    end: { x: number; y: number }
-  ) => {
+  const createCurvedPath = (start: { x: number; y: number }, end: { x: number; y: number }) => {
     const midX = (start.x + end.x) / 2;
     const midY = Math.min(start.y, end.y) - 50;
     return `M ${start.x} ${start.y} Q ${midX} ${midY} ${end.x} ${end.y}`;
   };
+
+  // Memoize projected points to avoid recalculating on every render
+  const projectedDots = useMemo(() => {
+    return dots.map((dot) => ({
+      start: projectPoint(dot.start.lat, dot.start.lng),
+      end: projectPoint(dot.end.lat, dot.end.lng),
+    }));
+  }, [dots]);
 
   return (
     <div className="w-full aspect-[2/1] dark:bg-black bg-white rounded-lg relative font-sans mx-auto">
@@ -60,13 +68,11 @@ export function WorldMap({
         viewBox="0 0 800 400"
         className="w-full h-full absolute inset-0 pointer-events-none select-none"
       >
-        {dots.map((dot, i) => {
-          const startPoint = projectPoint(dot.start.lat, dot.start.lng);
-          const endPoint = projectPoint(dot.end.lat, dot.end.lng);
+        {projectedDots.map((projected, i) => {
           return (
             <g key={`path-group-${i}`}>
               <motion.path
-                d={createCurvedPath(startPoint, endPoint)}
+                d={createCurvedPath(projected.start, projected.end)}
                 fill="none"
                 stroke="url(#path-gradient)"
                 strokeWidth="1"
@@ -96,18 +102,18 @@ export function WorldMap({
           </linearGradient>
         </defs>
 
-        {dots.map((dot, i) => (
+        {projectedDots.map((projected, i) => (
           <g key={`points-group-${i}`}>
             <g key={`start-${i}`}>
               <circle
-                cx={projectPoint(dot.start.lat, dot.start.lng).x}
-                cy={projectPoint(dot.start.lat, dot.start.lng).y}
+                cx={projected.start.x}
+                cy={projected.start.y}
                 r="2"
                 fill={lineColor}
               />
               <circle
-                cx={projectPoint(dot.start.lat, dot.start.lng).x}
-                cy={projectPoint(dot.start.lat, dot.start.lng).y}
+                cx={projected.start.x}
+                cy={projected.start.y}
                 r="2"
                 fill={lineColor}
                 opacity="0.5"
@@ -132,14 +138,14 @@ export function WorldMap({
             </g>
             <g key={`end-${i}`}>
               <circle
-                cx={projectPoint(dot.end.lat, dot.end.lng).x}
-                cy={projectPoint(dot.end.lat, dot.end.lng).y}
+                cx={projected.end.x}
+                cy={projected.end.y}
                 r="2"
                 fill={lineColor}
               />
               <circle
-                cx={projectPoint(dot.end.lat, dot.end.lng).x}
-                cy={projectPoint(dot.end.lat, dot.end.lng).y}
+                cx={projected.end.x}
+                cy={projected.end.y}
                 r="2"
                 fill={lineColor}
                 opacity="0.5"

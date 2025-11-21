@@ -23,6 +23,17 @@ All colors MUST be HSL.
     font-family: var(--font-oxygen), system-ui, -apple-system, sans-serif;
     min-height: 100vh;
   }
+
+  /* Performance optimizations to prevent forced reflows */
+  img, svg, video, canvas, audio, iframe, embed, object {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* Use transform and opacity for animations to avoid layout reflows */
+  [data-animate] {
+    will-change: transform, opacity;
+  }
 }
 
 @layer components {

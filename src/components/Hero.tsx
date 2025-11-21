@@ -1,7 +1,13 @@
 "use client";
-import { WorldMap } from "./ui/world-map";
+import dynamic from "next/dynamic";
 import { motion } from "motion/react";
 import { ArrowRight, Play } from "lucide-react";
+
+// Lazy load WorldMap as it's heavy with DottedMap dependency
+const WorldMap = dynamic(() => import("./ui/world-map").then(mod => ({ default: mod.WorldMap })), {
+  loading: () => <div className="w-full aspect-[2/1] bg-gray-100 dark:bg-gray-900 rounded-lg animate-pulse" />,
+  ssr: false, // Disable SSR for map as it uses browser APIs
+});
 
 const text = "Secure Your Future with SECURESIST";
 
@@ -61,13 +67,12 @@ export function Hero() {
                     {text.split("").map((char, index) => (
                       <motion.span
                         key={index}
-                        initial={{ opacity: 0, y: 20, scale: 0.5 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{
-                          duration: 0.3,
-                          delay: index * 0.05,
-                          type: "spring",
-                          stiffness: 200,
+                          duration: 0.2,
+                          delay: index * 0.03,
+                          ease: "easeOut",
                         }}
                         className="inline-block"
                       >
