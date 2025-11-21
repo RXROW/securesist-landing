@@ -12,11 +12,11 @@ const text = "Secure Your Future with SECURESIST";
 
 export function Hero() {
   return (
-    <div className="py-24 md:py-16 dark:bg-black bg-white w-full">
+    <div className="py-24   dark:bg-black bg-white w-full">
       <div className="max-w-7xl mx-auto px-4">
         {/* Map Container with Overlay Text */}
-        <div className="relative flex justify-center">
-          <div className="w-full max-w-5xl relative">
+        <div className="relative flex justify-center" style={{ contain: "layout" }}>
+          <div className="w-full max-w-5xl relative" style={{ contain: "layout style" }}>
             {/* Map */}
             <WorldMap
               dots={[

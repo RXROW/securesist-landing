@@ -54,7 +54,7 @@ export function WorldMap({
   }, [dots]);
 
   return (
-    <div className="w-full aspect-[2/1] dark:bg-black bg-white rounded-lg relative font-sans mx-auto">
+    <div className="w-full aspect-[2/1] dark:bg-black bg-white rounded-lg relative font-sans mx-auto" style={{ contain: "layout style paint" }}>
       <img
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
         className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none"
@@ -62,11 +62,14 @@ export function WorldMap({
         height="495"
         width="1056"
         draggable={false}
+        loading="lazy"
+        decoding="async"
       />
       <svg
         ref={svgRef}
         viewBox="0 0 800 400"
         className="w-full h-full absolute inset-0 pointer-events-none select-none"
+        style={{ willChange: "transform" }}
       >
         {projectedDots.map((projected, i) => {
           return (
@@ -88,6 +91,10 @@ export function WorldMap({
                   ease: "easeOut",
                 }}
                 key={`start-upper-${i}`}
+                style={{ 
+                  willChange: "stroke-dasharray",
+                  vectorEffect: "non-scaling-stroke"
+                }}
               ></motion.path>
             </g>
           );

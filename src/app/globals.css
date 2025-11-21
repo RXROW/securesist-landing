@@ -34,6 +34,25 @@ All colors MUST be HSL.
   [data-animate] {
     will-change: transform, opacity;
   }
+
+  /* CSS containment to prevent forced reflows */
+  .contain-layout {
+    contain: layout;
+  }
+
+  .contain-paint {
+    contain: paint;
+  }
+
+  .contain-strict {
+    contain: strict;
+  }
+
+  /* Prevent layout shifts from dynamic content */
+  [data-dynamic] {
+    min-height: 1px;
+    contain: layout style;
+  }
 }
 
 @layer components {

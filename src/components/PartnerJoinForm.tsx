@@ -98,21 +98,26 @@ const PartnerJoinForm = () => {
     
     // If form is invalid, prevent submission and scroll to first error
     if (!isValid) {
-      // Use setTimeout to ensure state updates are reflected in DOM before scrolling
-      setTimeout(() => {
-        // Find first error field and scroll to it
-        const firstErrorField = Object.keys(validationErrors)[0];
-        if (firstErrorField) {
-          const errorElement = document.getElementById(firstErrorField);
-          if (errorElement) {
-            errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
-            // Small delay before focusing to ensure scroll completes
-            setTimeout(() => {
-              errorElement.focus();
-            }, 300);
+      // Use requestAnimationFrame to batch DOM reads/writes and avoid forced reflow
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Find first error field and scroll to it
+          const firstErrorField = Object.keys(validationErrors)[0];
+          if (firstErrorField) {
+            const errorElement = document.getElementById(firstErrorField);
+            if (errorElement) {
+              // Use requestAnimationFrame before scroll to avoid forced reflow
+              requestAnimationFrame(() => {
+                errorElement.scrollIntoView({ behavior: "smooth", block: "center" });
+                // Small delay before focusing to ensure scroll completes
+                setTimeout(() => {
+                  errorElement.focus();
+                }, 300);
+              });
+            }
           }
-        }
-      }, 0);
+        });
+      });
       
       toast.error("Please fill in all required form fields before continuing. ⚠️ ", {
         duration: 5000,
