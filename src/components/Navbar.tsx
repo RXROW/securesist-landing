@@ -12,6 +12,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
+import Image from "next/image";
 
 const navItems = [
   { label: "HOME", href: "/" },
@@ -26,24 +27,14 @@ const Navbar = () => {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200/60 bg-white/80 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200/50 bg-white/50 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
       <nav className="container flex h-20 items-center justify-between">
-        {/* Enhanced Brand */}
-        <Link href="/" className="group flex items-center gap-3 transition-all duration-300 hover:scale-105">
+        {/* Enhanced Brand Logo */}
+        <Link href="/" className="group flex items-center justify-center transition-all duration-300 hover:scale-105">
           <div className="relative">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 shadow-lg transition-all duration-300 group-hover:shadow-blue-500/25">
-              <Shield className="h-6 w-6 text-white" />
-            </div>
-            <div className="absolute -inset-1 rounded-xl bg-blue-600 opacity-0 blur transition-all duration-300 group-hover:opacity-20" />
-          </div>
-          <div className="flex flex-col">
-            <span className="text-xl font-bold text-blue-600">
-              SecureSist
-            </span>
-            <span className="text-xs font-medium text-slate-500">
-              CYBERSECURITY
-            </span>
-          </div>
+            <Image src="/logo.png" alt="SecureSist Logo" width={130} height={130} />
+           </div>
+  
         </Link>
 
         {/* Desktop Navigation */}
@@ -59,8 +50,8 @@ const Navbar = () => {
                       className={[
                         "group relative inline-flex h-12 items-center px-4 text-sm font-semibold transition-all duration-300 rounded-lg",
                         isActive
-                          ? "text-blue-600 bg-blue-50"
-                          : "text-slate-700 hover:text-blue-600 hover:bg-slate-50",
+                          ? "text-blue-600"
+                          : "text-slate-700 hover:text-blue-600 ",
                       ].join(" ")}
                     >
                       {item.label}
@@ -72,7 +63,7 @@ const Navbar = () => {
             </ul>
             
             {/* Enhanced CTA Button */}
-            <Button asChild className="group relative overflow-hidden bg-blue-600 border-0 px-6 py-3 text-sm font-semibold shadow-lg transition-all duration-300 hover:bg-blue-700 hover:shadow-blue-500/25 hover:scale-105">
+            <Button  className="group relative overflow-hidden bg-blue-600 border-0 px-6 py-3 text-sm font-semibold shadow-lg transition-all duration-300 hover:bg-blue-700 hover:shadow-blue-500/25 hover:scale-105">
               <Link href="/contact" className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4" />
                 GET STARTED
@@ -125,8 +116,7 @@ const Navbar = () => {
                 })}
                 
                 <div className="pt-4 border-t border-slate-200/60">
-                  <Button 
-                    asChild 
+                  <Button  
                     className="w-full group relative overflow-hidden bg-blue-600 border-0 font-semibold shadow-lg transition-all duration-300 hover:bg-blue-700 hover:shadow-blue-500/25"
                   >
                     <Link href="/contact" className="flex items-center justify-center gap-2">

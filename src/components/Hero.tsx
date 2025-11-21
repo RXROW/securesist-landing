@@ -94,10 +94,10 @@ export const Hero = () => {
              
               <div className="relative overflow-hidden rounded-xl border border-gray-300 ">
                 <Image
-                  src="/cyber-security-illustration-free-vector.jpg"
+                  src="/cyber-security-illustration-free-vector.png"
                   alt="Cybersecurity protection illustration"
-                  width={900} // Increased width for larger image in container
-                  height={900} // Increased height for larger image in container
+                  width={1000} // Increased width for larger image in container
+                  height={1000} // Increased height for larger image in container
                   className="h-full w-full object-cover"
                   priority
                   quality={95}
