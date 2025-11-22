@@ -32,7 +32,7 @@ export default function Home() {
       {/* Why Choose SECURESIST Section - Lazy loaded */}
       <WhyChoose />
       {/* How It Works Section - Lazy loaded */}
-      <HowItWorks />
+      {/* <HowItWorks /> */}
       {/* Call to Action Section - Lazy loaded */}
       <CallToAction />
     </div>

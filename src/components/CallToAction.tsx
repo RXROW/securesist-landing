@@ -1,105 +1,106 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Image from "next/image"; // Import Image for the visual element
 import { 
   Star,
   ArrowRight,
   Mail,
-  Phone,
-  Shield,
-  Sparkles
+  Zap,
+  CheckCircle2, // New icon for trust points
 } from "lucide-react";
 
-const CallToAction = () => {
+const CallToActionSplit = () => {
   return (
-    <section className="relative py-24 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Decorative background elements */}
+    // Simple, Light Background
+    <section className="relative py-24 md:py-32 overflow-hidden bg-white">
+      
+      {/* Background decorations (Subtle blur) */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-blue-600/10 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-purple-600/10 blur-3xl" />
+        <div className="absolute -top-40 -right-40 h-80 w-80 rounded-full bg-blue-100/50 blur-3xl" />
       </div>
 
-      <div className="container max-w-5xl mx-auto">
-        <div className="relative">
-          {/* Badge */}
-          <div className="flex justify-center mb-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-700 text-sm font-semibold">
-              <Sparkles className="h-4 w-4" />
-              Get Started Today
-            </div>
-          </div>
+      <div className="container max-w-7xl mx-auto px-4">
+        
+        {/* === MAIN TWO-COLUMN GRID === */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center  ">
+          
+         
 
-          {/* Main Content */}
-          <div className="text-center mb-12">
-            <div className="flex justify-center mb-6">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full blur-xl opacity-30 animate-pulse" />
-                <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
-                  <Shield className="h-10 w-10 text-white" />
-                </div>
-              </div>
-            </div>
+          {/* 2. Right Side: Content and CTA */}
+          <div className="space-y-6 lg:space-y-8">
             
-            <h2 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl mb-6">
-              Ready to Transform Your
-              <br />
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Security Culture?
-              </span>
+           
+            
+            {/* Headline */}
+            <h2 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl lg:text-5xl">
+              Ready to <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Start Protecting</span> your Team?
             </h2>
             
-            <p className="mx-auto max-w-2xl text-xl text-slate-600 leading-relaxed">
-              Join organizations that trust SECURESIST to build resilient, security-aware teams. 
-              See how Meta Techs can elevate your workforce from aware to actively secure.
+            {/* Subtitle */}
+            <p className="max-w-xl text-lg text-slate-600 leading-relaxed">
+              Don't wait for the next breach. Schedule a personalized demo to see how SECURESIST delivers measurable, human-layer security intelligence across your organization.
             </p>
-          </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6 mb-12">
-            <Button 
-              asChild 
-              size="lg" 
-              className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 hover:scale-105 min-w-[200px]"
-            >
-              <Link href="/contact" className="flex items-center justify-center gap-2">
-                <Star className="h-5 w-5 fill-white" />
-                Request a Demo
-                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </Button>
-            
-            <Button 
-              asChild 
-              variant="outline" 
-              size="lg" 
-              className="group border-2 border-slate-300 hover:border-blue-600 bg-white hover:bg-blue-50 px-8 py-6 text-lg font-semibold transition-all duration-300 hover:scale-105 min-w-[200px] shadow-lg"
-            >
-              <Link href="/contact" className="flex items-center justify-center gap-2">
-                <Mail className="h-5 w-5" />
-                Contact our Team
-              </Link>
-            </Button>
-          </div>
-
-          {/* Trust Indicators */}
-          <div className="flex flex-col items-center gap-6 pt-8 border-t border-slate-200">
-            <div className="flex items-center gap-2 text-slate-600">
-              <Phone className="h-5 w-5 text-blue-600" />
-              <span className="font-medium">Ready to get started? Call us today!</span>
+            {/* CTA Buttons */}
+            <div className="flex flex-col gap-3 sm:flex-row sm:gap-4 pt-4">
+              
+              {/* Primary CTA */}
+              <Button 
+                className="group relative inline-flex items-center justify-center rounded-md bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-6 hover:shadow-md text-lg font-bold text-white  transition-all duration-300 hover:scale-[1.02]"
+              >
+                <Link href="/contact" className="relative z-10 flex items-center justify-center gap-2">
+                  <Star className="h-5 w-5 fill-white" />
+                  Request a Free Demo
+                  <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+              
+              {/* Secondary CTA */}
+              <Button 
+                variant="outline" 
+                className="group inline-flex items-center justify-center rounded-md border-2 border-gray-300 bg-white hover:border-purple-500 hover:bg-purple-50 px-8 py-6 text-lg font-semibold text-gray-800 transition-all duration-300 hover:scale-[1.02]"
+              >
+                <Link href="/contact" className="flex items-center justify-center gap-2">
+                  <Mail className="h-5 w-5 text-purple-600" />
+                  Contact Sales
+                </Link>
+              </Button>
             </div>
+
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap gap-x-6 gap-y-2 pt-4">
+              <div className="flex items-center gap-2 text-sm text-slate-500">
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                <span>No credit card needed</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-slate-500">
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                <span>Takes less than 30 minutes</span>
+              </div>
+            </div>
+
+          </div>
+
+
+
+
+           {/* 1. Left Side: Image/Visual Element */}
+           <div className="relative w-full h-80 md:h-96 lg:h-full min-h-[300px] rounded-md overflow-hidden  border border-gray-200">
+            {/* Replace this placeholder with your actual image path */}
+            <Image
+              src="/contact_us.jpg" 
+              alt="Security dashboard illustration showing threat metrics and training progress"
+              layout="fill"
+              objectFit="cover"
+              className="transition-transform duration-500 hover:scale-[1.03]"
+              priority 
+            />
+            {/* Optional: Add a subtle overlay for depth */}
+            <div className="absolute inset-0 bg-white/10" />
             
-            <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-500">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500" />
-                <span>Free Demo Available</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500" />
-                <span>24/7 Support</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500" />
-                <span>No Credit Card Required</span>
-              </div>
+            {/* Placeholder Badge */}
+            <div className="absolute bottom-4 left-4 rounded-full bg-blue-500 px-3 py-1 text-xs font-bold text-white shadow-lg">
+                Live Metrics
             </div>
           </div>
         </div>
@@ -108,4 +109,4 @@ const CallToAction = () => {
   )
 }
 
-export default CallToAction
+export default CallToActionSplit

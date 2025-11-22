@@ -1,5 +1,6 @@
  
-import { Users, Target, BarChart3, CheckCircle, Sparkles } from 'lucide-react';
+import { Users, Target, BarChart3, CheckCircle } from 'lucide-react';
+import { SectionHeader } from './SectionHeader';
 
 export const KeyBenefits = () => {
   const benefits = [
@@ -39,25 +40,16 @@ export const KeyBenefits = () => {
   ];
 
   return (
-    <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-blue-50/30 overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-0 left-1/4 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" />
-      <div className="absolute bottom-0 right-1/4 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style={{ animationDelay: '1s' }} />
-      
+    <section className="relative py-24 bg-gradient-to-b from-slate-50 via-white to-blue-50/90 overflow-hidden">
+ 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full text-sm font-semibold text-blue-700 mb-4">
-            <Sparkles className="h-4 w-4" />
-            Why Choose SECURESIST
-          </div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900">
-            Key <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Benefits</span>
-          </h2>
-          <p className="mt-4 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
-            Transform your cybersecurity training with our innovative approach designed for the modern workforce
-          </p>
-        </div>
+        <SectionHeader
+          badgeText="Why Choose SECURESIST"
+          title="Key"
+          titleHighlight="Benefits"
+          description="Transform your cybersecurity training with our innovative approach designed for the modern workforce"
+        />
         
         {/* Benefits Grid */}
         <div className="grid gap-8 md:grid-cols-3 max-w-7xl mx-auto">
@@ -70,19 +62,19 @@ export const KeyBenefits = () => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {/* Card */}
-                <div className="relative h-full bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 border border-slate-200 hover:border-transparent overflow-hidden">
+                <div className="relative h-full bg-white rounded-md  hover:shadow-md transition-all duration-500 hover:scale-105 border border-slate-200 hover:border-transparent overflow-hidden">
                   {/* Gradient overlay on hover */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${benefit.bgGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                   
                   {/* Animated border gradient */}
-                  <div className={`absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${benefit.gradient} p-[2px]`}>
-                    <div className="h-full w-full rounded-3xl bg-white" />
+                  <div className={`absolute inset-0 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br ${benefit.gradient} p-[2px]`}>
+                    <div className="h-full w-full rounded-md bg-white" />
                   </div>
                   
                   {/* Content */}
                   <div className="relative p-8 space-y-6">
                     {/* Icon */}
-                    <div className={`inline-flex items-center justify-center w-16 h-16 ${benefit.iconBg} rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-md`}>
+                    <div className={`inline-flex items-center justify-center w-16 h-16 ${benefit.iconBg} rounded-full  group-hover:scale-110 transition-transform duration-500 `}>
                       <Icon className={`h-8 w-8 ${benefit.iconColor}`} />
                     </div>
                     
@@ -115,14 +107,7 @@ export const KeyBenefits = () => {
           })}
         </div>
         
-        {/* Bottom CTA */}
-        <div className="mt-16 text-center">
-          <p className="text-slate-600 mb-6">Ready to elevate your security posture?</p>
-          <button className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-            Get Started Today
-            <CheckCircle className="h-5 w-5" />
-          </button>
-        </div>
+     
       </div>
      
     </section>

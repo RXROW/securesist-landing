@@ -1,6 +1,4 @@
-import React from 'react';
 import { 
-  Shield, 
   Users, 
   Target, 
   BarChart3, 
@@ -8,145 +6,122 @@ import {
   CheckCircle2,
   ArrowRight
 } from "lucide-react";
+import { SectionHeader } from "./SectionHeader";
 
 export const WhyChoose = () => {
   const features = [
     {
       icon: Users,
-      title: "Engagement Learning Modules",
-      benefit: "Easy learning and keeps the employees engaged",
+      title: "High Engagement",
+      benefit: "Interactive content ensures maximum employee retention.", // Simplified benefit text
       color: "blue",
-      bgColor: "bg-blue-100",
+      bgColor: "bg-blue-500/10", // Very light background
       textColor: "text-blue-600",
       gradient: "from-blue-500 to-cyan-500",
-      hoverBg: "group-hover:bg-gradient-to-br group-hover:from-blue-50 group-hover:to-cyan-50"
+      shadow: "shadow-blue-500/10"
     },
     {
       icon: Target,
-      title: "Smart, Role-Based Delivery",
-      benefit: "Personalized, efficient, and relevant",
+      title: "Role-Based Training",
+      benefit: "Personalized paths deliver highly relevant education.", // Simplified benefit text
       color: "purple",
-      bgColor: "bg-purple-100",
+      bgColor: "bg-purple-500/10",
       textColor: "text-purple-600",
       gradient: "from-purple-500 to-pink-500",
-      hoverBg: "group-hover:bg-gradient-to-br group-hover:from-purple-50 group-hover:to-pink-50"
+      shadow: "shadow-purple-500/10"
     },
     {
       icon: Zap,
-      title: "Automated Campaign Management",
-      benefit: "Saves time and ensures continuous coverage",
+      title: "Campaign Automation",
+      benefit: "Automated schedules save time and ensure coverage.",
       color: "green",
-      bgColor: "bg-green-100",
+      bgColor: "bg-green-500/10",
       textColor: "text-green-600",
       gradient: "from-green-500 to-emerald-500",
-      hoverBg: "group-hover:bg-gradient-to-br group-hover:from-green-50 group-hover:to-emerald-50"
+      shadow: "shadow-green-500/10"
     },
     {
       icon: BarChart3,
-      title: "Insightful Reporting",
-      benefit: "Helps focus on high-risk areas quickly",
+      title: "Actionable Reporting",
+      benefit: "Clear dashboards focus efforts on high-risk areas.",
       color: "orange",
-      bgColor: "bg-orange-100",
+      bgColor: "bg-orange-500/10",
       textColor: "text-orange-600",
       gradient: "from-orange-500 to-amber-500",
-      hoverBg: "group-hover:bg-gradient-to-br group-hover:from-orange-50 group-hover:to-amber-50"
-    },
-    {
-      icon: Shield,
-      title: "Backed by Meta Tech's Expertise",
-      benefit: "Trustworthy foundation in cybersecurity",
-      color: "red",
-      bgColor: "bg-red-100",
-      textColor: "text-red-600",
-      gradient: "from-red-500 to-rose-500",
-      hoverBg: "group-hover:bg-gradient-to-br group-hover:from-red-50 group-hover:to-rose-50"
-    }
+      shadow: "shadow-orange-500/10"
+    } 
   ];
 
   return (
-    <section className="relative py-24 bg-gradient-to-b from-white via-slate-50 to-white overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute top-1/3 left-0 w-96 h-96 bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20" />
-      <div className="absolute bottom-1/3 right-0 w-96 h-96 bg-purple-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20" />
+    // 1. Light Background with Subtle Texture
+    <section className="relative py-24 md:py-32 bg-gray-50 overflow-hidden">
+      {/* Background Grid Pattern (Very subtle light mode grid) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f3f4f6_1px,transparent_1px),linear-gradient(to_bottom,#f3f4f6_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-70" />
+      
+      {/* Background decorations (Soft color spots) */}
+      <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-100 rounded-full mix-blend-multiply filter blur-[100px] opacity-40" />
+      <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 delay-1000" />
       
       <div className="container mx-auto px-4 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900">
-            Why Choose{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-              SECURESIST
-            </span>
-          </h2>
-          <p className="mt-4 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
-            Discover the advantages that set us apart in cybersecurity training
-          </p>
-        </div>
         
-        {/* Features List */}
-        <div className="max-w-5xl mx-auto space-y-4">
+          <SectionHeader
+          badgeText="Why Choose SECURESIST"
+          title="Why Choose"
+          titleHighlight="SECURESIST"
+          description="Discover the advantages that set us apart in cybersecurity training"
+        />
+        
+        {/* Features Grid (4 columns for small cards) */}
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"> 
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
+              // 2. Small Card Styling (Elevated, Clean Hover)
               <div
                 key={index}
-                className={`group relative bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] border border-slate-200 overflow-hidden ${feature.hoverBg}`}
-                style={{ animationDelay: `${index * 50}ms` }}
+                className={`group relative bg-white rounded-xl p-6 text-center  hover:shadow-md transition-all duration-300 hover:scale-[1.03] hover:${feature.shadow} border border-gray-200`}
               >
-                {/* Gradient accent bar */}
-                <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${feature.gradient}`} />
+                {/* Icon Container (Smaller, colorful circle) */}
+                <div className={`mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full ${feature.bgColor} ${feature.textColor} transition-all duration-500  group-hover:scale-110`}>
+                  <Icon className="h-6 w-6" /> 
+                </div>
                 
-                {/* Hover gradient overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                {/* Title (Smaller, bold) */}
+                <h3 className="font-bold text-lg text-slate-800 mb-2">
+                  {feature.title}
+                </h3>
                 
-                <div className="relative flex flex-col md:flex-row md:items-center gap-6 p-6 md:p-8">
-                  {/* Icon and Title */}
-                  <div className="flex items-center gap-4 md:w-2/5">
-                    <div className={`flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-xl ${feature.bgColor} ${feature.textColor} group-hover:scale-110 transition-transform duration-500 shadow-md`}>
-                      <Icon className="h-7 w-7" />
-                    </div>
-                    <h3 className="font-bold text-lg text-slate-900 group-hover:text-slate-800">
-                      {feature.title}
-                    </h3>
-                  </div>
-                  
-                  {/* Divider */}
-                  <div className="hidden md:block w-px h-12 bg-slate-200 group-hover:bg-gradient-to-b group-hover:from-transparent group-hover:via-slate-300 group-hover:to-transparent transition-colors" />
-                  
-                  {/* Benefit */}
-                  <div className="flex items-center gap-3 md:flex-1">
-                    <CheckCircle2 className={`h-5 w-5 ${feature.textColor} flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                    <p className="text-slate-600 group-hover:text-slate-700 transition-colors">
-                      {feature.benefit}
-                    </p>
-                  </div>
-                  
-                  {/* Arrow indicator */}
-                  <ArrowRight className={`hidden md:block h-5 w-5 ${feature.textColor} opacity-0 group-hover:opacity-100 transform translate-x-[-10px] group-hover:translate-x-0 transition-all duration-500`} />
+                {/* Benefit (Smallest text) */}
+                <p className="text-slate-500 text-sm">
+                  {feature.benefit}
+                </p>
+                
+                {/* Hover Arrow (Minimalist Indicator) */}
+                <div className={`mt-3 flex justify-center items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${feature.textColor}`}>
+                    <span className="text-xs font-semibold">Explore</span>
+                    <ArrowRight className="h-3 w-3 ml-1" />
                 </div>
               </div>
             );
           })}
         </div>
         
-        {/* Bottom Stats */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          <div className="text-center p-6 bg-white rounded-xl shadow-md border border-slate-200">
-            <div className="text-4xl font-bold text-blue-600 mb-2">98%</div>
-            <div className="text-sm text-slate-600">Training Completion Rate</div>
+        {/* Bottom Stats - Simplified and Clean */}
+        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="text-center p-6 bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div className="text-4xl font-extrabold text-blue-600 mb-2">98%</div>
+            <div className="text-xs uppercase tracking-wider text-slate-500">Training Completion Rate</div>
           </div>
-          <div className="text-center p-6 bg-white rounded-xl shadow-md border border-slate-200">
-            <div className="text-4xl font-bold text-purple-600 mb-2">75%</div>
-            <div className="text-sm text-slate-600">Reduction in Security Incidents</div>
+          <div className="text-center p-6 bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div className="text-4xl font-extrabold text-purple-600 mb-2">75%</div>
+            <div className="text-xs uppercase tracking-wider text-slate-500">Incident Reduction</div>
           </div>
-          <div className="text-center p-6 bg-white rounded-xl shadow-md border border-slate-200">
-            <div className="text-4xl font-bold text-green-600 mb-2">5 Min</div>
-            <div className="text-sm text-slate-600">Average Module Duration</div>
+          <div className="text-center p-6 bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+            <div className="text-4xl font-extrabold text-green-600 mb-2">5 Min</div>
+            <div className="text-xs uppercase tracking-wider text-slate-500">Avg. Module Duration</div>
           </div>
         </div>
       </div>
-      
-       
     </section>
   );
 }
