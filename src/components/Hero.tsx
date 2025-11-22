@@ -41,7 +41,7 @@ const MAP_DOTS = [
     start: { lat: -1.2921, lng: 36.8219 }, // Nairobi
     end: { lat: 51.5074, lng: -0.1278 }, // London
   },
-] as const;
+];
 
 export const Hero = memo(function Hero() {
   return (
