@@ -1,8 +1,10 @@
- 
+"use client";
+
+import { memo } from 'react';
 import { Users, Target, BarChart3, CheckCircle } from 'lucide-react';
 import { SectionHeader } from './SectionHeader';
 
-export const KeyBenefits = () => {
+export const KeyBenefits = memo(() => {
   const benefits = [
     {
       icon: Users,
@@ -112,4 +114,6 @@ export const KeyBenefits = () => {
      
     </section>
   );
-}
+});
+
+KeyBenefits.displayName = 'KeyBenefits';

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Sparkles } from 'lucide-react';
 
 interface SectionHeaderProps {
@@ -7,12 +8,12 @@ interface SectionHeaderProps {
   description: string;
 }
 
-export const SectionHeader = ({ 
+export const SectionHeader = memo(function SectionHeader({ 
   badgeText, 
   title, 
   titleHighlight, 
   description 
-}: SectionHeaderProps) => {
+}: SectionHeaderProps) {
   return (
     <div className="text-center mb-16 space-y-4">
       <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-50 to-purple-50 rounded-full text-sm border border-slate-200 font-semibold text-blue-800 mb-4">
@@ -31,5 +32,5 @@ export const SectionHeader = ({
       </p>
     </div>
   );
-};
+});
 

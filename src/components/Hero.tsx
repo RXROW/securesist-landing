@@ -1,16 +1,49 @@
 "use client";
+import { memo } from "react";
 import dynamic from "next/dynamic";
 import { ArrowRight, Play, Shield } from "lucide-react";
 
 // Lazy load WorldMap as it's heavy with DottedMap dependency
+// Note: Client component will automatically only render on client side
 const WorldMap = dynamic(() => import("./ui/world-map").then(mod => ({ default: mod.WorldMap })), {
-  loading: () => <div className="w-full aspect-[2/1] rounded-2xl animate-pulse" />,
-  ssr: false, // Disable SSR for map as it uses browser APIs
+  loading: () => <div className="w-full aspect-[2/1] rounded-2xl animate-pulse" style={{ contain: "layout" }} />,
 });
 
 const text = " SECURESIST";
 
-export function Hero() {
+// Stable dots array - defined outside component to prevent recreation on every render
+const MAP_DOTS = [
+  {
+    start: { lat: 40.7128, lng: -74.0060 }, // New York
+    end: { lat: 51.5074, lng: -0.1278 }, // London
+  },
+  {
+    start: { lat: 51.5074, lng: -0.1278 }, // London
+    end: { lat: 28.6139, lng: 77.209 }, // New Delhi
+  },
+  {
+    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
+    end: { lat: 35.6762, lng: 139.6503 }, // Tokyo
+  },
+  {
+    start: { lat: 35.6762, lng: 139.6503 }, // Tokyo
+    end: { lat: 34.0522, lng: -118.2437 }, // Los Angeles
+  },
+  {
+    start: { lat: 34.0522, lng: -118.2437 }, // Los Angeles
+    end: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+  },
+  {
+    start: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
+    end: { lat: -1.2921, lng: 36.8219 }, // Nairobi
+  },
+  {
+    start: { lat: -1.2921, lng: 36.8219 }, // Nairobi
+    end: { lat: 51.5074, lng: -0.1278 }, // London
+  },
+] as const;
+
+export const Hero = memo(function Hero() {
   return (
     <section className="relative py-30 h-[100%]  my-22 md:py-16 md:my-0 w-full overflow-hidden">
       <div className="relative  py-10 h-[100%]   md:py-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -21,36 +54,7 @@ export function Hero() {
             <div className="relative   overflow-hidden  ">
               <WorldMap
                 lineColor="#9333ea"
-                dots={[
-                  {
-                    start: { lat: 40.7128, lng: -74.0060 }, // New York
-                    end: { lat: 51.5074, lng: -0.1278 }, // London
-                  },
-                  {
-                    start: { lat: 51.5074, lng: -0.1278 }, // London
-                    end: { lat: 28.6139, lng: 77.209 }, // New Delhi
-                  },
-                  {
-                    start: { lat: 28.6139, lng: 77.209 }, // New Delhi
-                    end: { lat: 35.6762, lng: 139.6503 }, // Tokyo
-                  },
-                  {
-                    start: { lat: 35.6762, lng: 139.6503 }, // Tokyo
-                    end: { lat: 34.0522, lng: -18.2437 }, // Los Angeles
-                  },
-                  {
-                    start: { lat: 34.0522, lng: -118.2437 }, // Los Angeles
-                    end: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
-                  },
-                  {
-                    start: { lat: -15.7975, lng: -47.8919 }, // Brazil (Brasília)
-                    end: { lat: -1.2921, lng: 36.8219 }, // Nairobi
-                  },
-                  {
-                    start: { lat: -1.2921, lng: 36.8219 }, // Nairobi
-                    end: { lat: 51.5074, lng: -0.1278 }, // London
-                  },
-                ]}
+                dots={MAP_DOTS}
               />
             </div>
             
@@ -116,4 +120,4 @@ export function Hero() {
       </div>
     </section>
   )
-}
+});

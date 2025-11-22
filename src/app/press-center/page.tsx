@@ -1,190 +1,257 @@
+"use client";
+
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Newspaper, Megaphone, Calendar, ExternalLink, Mail } from "lucide-react";
+import { SectionHeader } from "@/components/SectionHeader";
+import { BookOpen, Calendar, Clock, ArrowRight, User } from "lucide-react";
 
-const articles = [
+// Blog posts data
+const blogPosts = [
   {
+    slug: "meta-techs-launches-securesist",
     title: "Meta Techs Launches SECURESIST to Reduce Human Risk",
-    excerpt:
-      "A people-first cybersecurity awareness platform built to turn employees into active defenders.",
+    excerpt: "A people-first cybersecurity awareness platform built to turn employees into active defenders of your organization's security.",
     date: "2025-02-10",
-    type: "Press Release",
-    href: "#",
+    readTime: "5 min read",
+    author: "Meta Techs Team",
+    category: "Announcement",
+    image: "/contact_us.jpg",
+    featured: true,
   },
   {
+    slug: "build-security-culture-90-days",
     title: "5 Practical Ways to Build a Security Culture in 90 Days",
-    excerpt:
-      "From role-based training to adaptive phishing simulations, here’s how teams move the needle quickly.",
+    excerpt: "From role-based training to adaptive phishing simulations, here's how teams move the needle quickly and effectively.",
     date: "2025-01-28",
-    type: "Insight",
-    href: "#",
+    readTime: "8 min read",
+    author: "Sarah Johnson",
+    category: "Best Practices",
+    image: "/contact_us.jpg",
+    featured: false,
   },
   {
+    slug: "compliance-ready-reporting",
     title: "Compliance-Ready Reporting: What Auditors Want to See",
-    excerpt:
-      "Map training outcomes to frameworks and simplify evidence collection with clear dashboards.",
+    excerpt: "Map training outcomes to frameworks and simplify evidence collection with clear, comprehensive dashboards.",
     date: "2025-01-12",
-    type: "Blog",
-    href: "#",
+    readTime: "6 min read",
+    author: "Michael Chen",
+    category: "Compliance",
+    image: "/contact_us.jpg",
+    featured: false,
   },
   {
+    slug: "partner-spotlight-securesist",
     title: "Partner Spotlight: Accelerating Outcomes with SECURESIST",
-    excerpt:
-      "How service partners attach awareness programs to risk assessments and vCISO offerings.",
+    excerpt: "How service partners attach awareness programs to risk assessments and vCISO offerings for maximum impact.",
     date: "2024-12-19",
-    type: "Partner",
-    href: "#",
+    readTime: "7 min read",
+    author: "David Martinez",
+    category: "Partners",
+    image: "/contact_us.jpg",
+    featured: false,
+  },
+  {
+    slug: "phishing-simulation-best-practices",
+    title: "Phishing Simulation Best Practices: A Complete Guide",
+    excerpt: "Learn how to design effective phishing campaigns that educate without overwhelming your employees.",
+    date: "2024-12-05",
+    readTime: "10 min read",
+    author: "Emily Rodriguez",
+    category: "Training",
+    image: "/contact_us.jpg",
+    featured: false,
+  },
+  {
+    slug: "measuring-security-awareness-roi",
+    title: "Measuring Security Awareness ROI: Key Metrics That Matter",
+    excerpt: "Discover the metrics that truly matter when evaluating the success of your cybersecurity training program.",
+    date: "2024-11-20",
+    readTime: "9 min read",
+    author: "James Wilson",
+    category: "Analytics",
+    image: "/contact_us.jpg",
+    featured: false,
   },
 ];
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString(undefined, {
     year: "numeric",
-    month: "short",
-    day: "2-digit",
+    month: "long",
+    day: "numeric",
   });
 
-const PressCenter = () => {
+const getCategoryColor = (category: string) => {
+  const colors: Record<string, string> = {
+    Announcement: "bg-blue-100 text-blue-700 border-blue-200",
+    "Best Practices": "bg-green-100 text-green-700 border-green-200",
+    Compliance: "bg-purple-100 text-purple-700 border-purple-200",
+    Partners: "bg-orange-100 text-orange-700 border-orange-200",
+    Training: "bg-cyan-100 text-cyan-700 border-cyan-200",
+    Analytics: "bg-pink-100 text-pink-700 border-pink-200",
+  };
+  return colors[category] || "bg-slate-100 text-slate-700 border-slate-200";
+};
+
+export default function BlogPage() {
+  const featuredPost = blogPosts.find((post) => post.featured);
+  const regularPosts = blogPosts.filter((post) => !post.featured);
+
   return (
-    <main>
- 
-
-      {/* Hero */}
-      <section className="relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
-        <div className="mx-auto max-w-7xl">
-          <div className="text-center">
-            <Badge variant="secondary" className="mb-4 inline-flex items-center gap-2 px-3 py-1.5 text-sm">
-              <Megaphone className="h-4 w-4 text-blue-600" /> Press Center
-            </Badge>
-            <h1 className="mx-auto max-w-4xl text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-              News, Insights, and Announcements
-            </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-slate-600">
-              Stay updated with Meta Techs and SECURESIST—explore product updates, expert guidance, and partner stories.
-            </p>
-            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-              <Button asChild size="lg" className="group bg-blue-600 hover:bg-blue-700 text-white px-6">
-                <Link href="/contact" className="flex items-center gap-2">
-                  Media Inquiries
-                  <Mail className="h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="px-6">
-                <Link href="/contact" className="flex items-center gap-2">
-                  Join the Newsletter
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-        <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute -top-40 -right-40 h-72 w-72 rounded-full bg-blue-600/10 blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 h-72 w-72 rounded-full bg-purple-600/10 blur-3xl" />
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-blue-50/30">
+      {/* Hero Section */}
+      <section className="relative py-10 md:py-16 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-purple-50/50" />
+        <div className="container mx-auto px-4 relative z-10">
+          <SectionHeader
+            badgeText="Our Blog"
+            title="Latest"
+            titleHighlight="Insights & News"
+            description="Stay updated with the latest cybersecurity trends, best practices, and announcements from SECURESIST"
+          />
         </div>
       </section>
 
-      {/* Featured Story */}
-      <section className="px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
-          <Card className="overflow-hidden border-0 bg-white/80 backdrop-blur-sm shadow-xl">
-            <div className="grid gap-0 md:grid-cols-2">
-              <div className="bg-slate-100">
-                <img src="/placeholder.svg" alt="Featured story" className="h-full w-full object-cover" />
+      {/* Featured Post */}
+      {featuredPost && (
+        <section className="py-12 md:py-16">
+          <div className="container mx-auto px-4">
+            <div className="max-w-7xl mx-auto">
+              <div className="mb-6">
+                <Badge className="px-3 py-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white border-0">
+                  Featured Article
+                </Badge>
               </div>
-              <div>
-                <CardHeader>
-                  <div className="mb-2 flex items-center gap-3 text-sm text-slate-500">
-                    <Badge variant="secondary">Press Release</Badge>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" /> {formatDate("2025-02-10")}
+              <Card className="overflow-hidden border-0 bg-white shadow-2xl hover:shadow-3xl transition-shadow duration-300">
+                <div className="grid gap-0 md:grid-cols-2">
+                  <div className="relative h-[300px] md:h-full min-h-[400px]">
+                    <Image
+                      src={featuredPost.image}
+                      alt={featuredPost.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      className="transition-transform duration-700 hover:scale-110"
+                      priority
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                  </div>
+                  <div className="p-8 md:p-12 flex flex-col justify-center">
+                    <div className="mb-4 flex flex-wrap items-center gap-4 text-sm text-slate-500">
+                      <Badge variant="outline" className={getCategoryColor(featuredPost.category)}>
+                        {featuredPost.category}
+                      </Badge>
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-4 w-4" />
+                        {formatDate(featuredPost.date)}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="h-4 w-4" />
+                        {featuredPost.readTime}
+                      </div>
                     </div>
-                  </div>
-                  <CardTitle className="text-2xl">Meta Techs Launches SECURESIST to Reduce Human Risk</CardTitle>
-                  <CardDescription>
-                    An intelligent, role-based cybersecurity awareness platform to help organizations build a resilient security culture.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap items-center gap-3">
-                    <Button asChild>
-                      <a href="#" className="flex items-center gap-2">
-                        Read Announcement
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </Button>
-                    <Button asChild variant="outline">
-                      <Link href="/solutions">Explore Solutions</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </section>
-
-      {/* Latest Articles */}
-      <section className="px-4 py-12 sm:px-6 lg:px-8 bg-white/60">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-8 text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Latest from the Team</h2>
-            <p className="mt-3 text-slate-600">Announcements, guidance, and stories from Meta Techs and our partners.</p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {articles.map((a) => (
-              <Card key={a.title} className="border-0 bg-white/80 backdrop-blur-sm shadow-lg transition hover:shadow-xl">
-                <CardHeader>
-                  <div className="mb-2 flex items-center justify-between text-sm text-slate-500">
-                    <Badge variant="secondary">{a.type}</Badge>
-                    <div className="flex items-center gap-1">
-                      <Calendar className="h-4 w-4" /> {formatDate(a.date)}
+                    <CardTitle className="text-2xl md:text-3xl mb-4 font-black">
+                      {featuredPost.title}
+                    </CardTitle>
+                    <CardDescription className="text-base mb-6">
+                      {featuredPost.excerpt}
+                    </CardDescription>
+                    <div className="flex items-center gap-2 mb-6 text-sm text-slate-600">
+                      <User className="h-4 w-4" />
+                      <span>{featuredPost.author}</span>
                     </div>
+                    <Button asChild className="group w-fit bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
+                      <Link href={`/press-center/${featuredPost.slug}`} className="flex items-center gap-2">
+                        Read Full Article
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </Link>
+                    </Button>
                   </div>
-                  <CardTitle className="text-xl">{a.title}</CardTitle>
-                  <CardDescription>{a.excerpt}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Button asChild variant="outline" className="w-full">
-                    <a href={a.href} className="flex items-center justify-center gap-2">
-                      Read more
-                      <ExternalLink className="h-4 w-4" />
-                    </a>
-                  </Button>
-                </CardContent>
+                </div>
               </Card>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* Press Contact */}
-      <section className="px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <Newspaper className="mx-auto mb-4 h-10 w-10 text-blue-600" />
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Press & Media Inquiries</h2>
-          <p className="mt-4 text-lg text-slate-600">
-            For interviews, quotes, or brand assets, please contact our communications team.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-            <Button asChild size="lg" className="group bg-blue-600 hover:bg-blue-700 text-white px-6">
-              <Link href="/contact" className="flex items-center gap-2">
-                Contact PR Team
-                <Mail className="h-5 w-5" />
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="px-6">
-              <a href="#" className="flex items-center gap-2">
-                Download Media Kit
-                <ExternalLink className="h-4 w-4" />
-              </a>
-            </Button>
+      {/* Blog Posts Grid */}
+      <section className="py-12 md:py-16 bg-white/60">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="mb-12 text-center">
+              <h2 className="text-3xl md:text-4xl font-black tracking-tight text-slate-900 mb-3">
+                All Articles
+              </h2>
+              <p className="text-lg text-slate-600">
+                Explore our collection of cybersecurity insights and best practices
+              </p>
+            </div>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {regularPosts.map((post) => (
+                <Card
+                  key={post.slug}
+                  className="group border-0 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={post.image}
+                      alt={post.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      className="transition-transform duration-700 group-hover:scale-110"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <Badge variant="outline" className={getCategoryColor(post.category)}>
+                        {post.category}
+                      </Badge>
+                    </div>
+                  </div>
+                  <CardHeader>
+                    <div className="mb-3 flex items-center gap-4 text-xs text-slate-500">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="h-3 w-3" />
+                        {formatDate(post.date)}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="h-3 w-3" />
+                        {post.readTime}
+                      </div>
+                    </div>
+                    <CardTitle className="text-xl mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                      {post.title}
+                    </CardTitle>
+                    <CardDescription className="line-clamp-3">
+                      {post.excerpt}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-sm text-slate-600">
+                        <User className="h-4 w-4" />
+                        <span>{post.author}</span>
+                      </div>
+                      <Button asChild variant="ghost" size="sm" className="group/btn">
+                        <Link
+                          href={`/press-center/${post.slug}`}
+                          className="flex items-center gap-1 text-blue-600"
+                        >
+                          Read
+                          <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
     </main>
   );
-};
-
-export default PressCenter;
+}

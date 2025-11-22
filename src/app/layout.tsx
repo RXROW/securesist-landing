@@ -1,16 +1,25 @@
 import type { Metadata } from "next";
 import { Oxygen } from "next/font/google";
 import "./globals.css";
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Toaster } from "react-hot-toast";
+
+// Lazy load Footer as it's below the fold
+const Footer = dynamic(() => import("@/components/Footer"), {
+  ssr: true,
+});
+
+// Lazy load Toaster - non-critical (client component)
+const ToasterClient = dynamic(() => import("@/components/ToasterClient").then(mod => ({ default: mod.ToasterClient })));
  
  
-//  Oxygen font
+//  Oxygen font - optimized loading
 const oxygen = Oxygen({
   subsets: ["latin"],
   weight: ["300", "400", "700"],
   variable: "--font-oxygen",
+  display: "swap", // Optimize font loading
+  preload: true,
 });
 export const metadata: Metadata = {
   title: "SECURESIST - Cybersecurity Awareness Training",
@@ -31,7 +40,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
-        <Toaster />
+        <ToasterClient />
       </body>
     </html>
   );

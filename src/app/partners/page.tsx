@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import PartnerJoinForm from "@/components/PartnerJoinForm";
 import PartnerLogosSlide from "@/components/PartnerLogosSlide";
+import { SectionHeader } from "@/components/SectionHeader";
 
 const Partners = () => {
   const benefits = [
@@ -51,24 +52,16 @@ const Partners = () => {
    
 
   return (
-    <main className="bg-white">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-blue-50/30">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-slate-50 via-white to-blue-50/30">
+      <section className="relative py-20  ">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2  border border-blue-200 rounded-full text-sm font-semibold text-blue-700 mb-6">
-              <Globe className="h-4 w-4" />
-              Strategic Partnerships
-            </div>
-            
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 mb-6">
-              Partner with <span className="text-blue-600">SECURESIST</span>
-            </h1>
-            
-            <p className="text-lg text-slate-600 mb-8">
-              Together, we help customers build resilient security cultures with role-based training, measurable outcomes, and trusted expertise.
-            </p>
-            
+        <SectionHeader
+          badgeText="Partner with SECURESIST"
+          title="Partner"
+          titleHighlight="SECURESIST"
+          description="Together, we help customers build resilient security cultures with role-based training, measurable outcomes, and trusted expertise."
+        />
             
             <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-slate-600">
               <div className="flex items-center gap-2">
@@ -85,7 +78,7 @@ const Partners = () => {
               </div>
             </div>
           </div>
-        </div>
+         
       </section>
 
 

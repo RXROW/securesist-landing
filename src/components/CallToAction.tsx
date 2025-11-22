@@ -1,3 +1,6 @@
+"use client";
+
+import { memo } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image"; // Import Image for the visual element
@@ -9,7 +12,7 @@ import {
   CheckCircle2, // New icon for trust points
 } from "lucide-react";
 
-const CallToActionSplit = () => {
+const CallToActionSplit = memo(() => {
   return (
     // Simple, Light Background
     <section className="relative py-24 md:py-32 overflow-hidden bg-white">
@@ -90,10 +93,11 @@ const CallToActionSplit = () => {
             <Image
               src="/contact_us.jpg" 
               alt="Security dashboard illustration showing threat metrics and training progress"
-              layout="fill"
-              objectFit="cover"
+              fill
+              style={{ objectFit: "cover" }}
               className="transition-transform duration-500 hover:scale-[1.03]"
-              priority 
+              loading="lazy"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
             {/* Optional: Add a subtle overlay for depth */}
             <div className="absolute inset-0 bg-white/10" />
@@ -107,6 +111,8 @@ const CallToActionSplit = () => {
       </div>
     </section>
   )
-}
+});
+
+CallToActionSplit.displayName = 'CallToActionSplit';
 
 export default CallToActionSplit

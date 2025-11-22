@@ -1,3 +1,6 @@
+"use client";
+
+import { memo } from "react";
 import { 
   Users, 
   Target, 
@@ -8,7 +11,7 @@ import {
 } from "lucide-react";
 import { SectionHeader } from "./SectionHeader";
 
-export const WhyChoose = () => {
+export const WhyChoose = memo(() => {
   const features = [
     {
       icon: Users,
@@ -124,4 +127,6 @@ export const WhyChoose = () => {
       </div>
     </section>
   );
-}
+});
+
+WhyChoose.displayName = 'WhyChoose';

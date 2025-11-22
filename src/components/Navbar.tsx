@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Shield, Sparkles, ArrowRight } from "lucide-react";
@@ -22,7 +23,7 @@ const navItems = [
   { label: "PRESS CENTER", href: "/press-center" },
 ];
 
-const Navbar = () => {
+const Navbar = memo(() => {
   const isMobile = useIsMobile();
   const pathname = usePathname();
 
@@ -89,12 +90,7 @@ const Navbar = () => {
             <SheetContent side="right" className="w-80 bg-white/95 backdrop-blur-xl border-l border-slate-200/60">
               <SheetHeader className="border-b border-slate-200/60 pb-4">
                 <SheetTitle className="text-left flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600">
-                    <Shield className="h-5 w-5 text-white" />
-                  </div>
-                  <span className="text-lg font-bold text-blue-600">
-                    SecureSist
-                  </span>
+                  <Image src="/logo.png" alt="SecureSist Logo" width={130} height={130} />
                 </SheetTitle>
               </SheetHeader>
               
@@ -133,6 +129,8 @@ const Navbar = () => {
       </nav>
     </header>
   );
-};
+});
+
+Navbar.displayName = 'Navbar';
 
 export default Navbar;

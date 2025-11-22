@@ -2,24 +2,22 @@ import dynamic from "next/dynamic";
 import { Hero } from "@/components/Hero";
 
 // Lazy load below-the-fold components to reduce initial JS bundle
+// Use intersection observer for better performance
+// Note: Client components will automatically only render on client side
 const KeyBenefits = dynamic(() => import("@/components/KeyBenefits").then(mod => ({ default: mod.KeyBenefits })), {
   loading: () => <div className="min-h-[400px]" style={{ contain: "layout" }} />,
-  ssr: true,
 });
 
 const WhyChoose = dynamic(() => import("@/components/WhyChoose").then(mod => ({ default: mod.WhyChoose })), {
   loading: () => <div className="min-h-[400px]" style={{ contain: "layout" }} />,
-  ssr: true,
 });
 
 const HowItWorks = dynamic(() => import("@/components/HowItWorks"), {
   loading: () => <div className="min-h-[400px]" style={{ contain: "layout" }} />,
-  ssr: true,
 });
 
 const CallToAction = dynamic(() => import("@/components/CallToAction"), {
   loading: () => <div className="min-h-[300px]" style={{ contain: "layout" }} />,
-  ssr: true,
 });
 
 export default function Home() {

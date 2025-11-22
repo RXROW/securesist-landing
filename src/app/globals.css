@@ -28,6 +28,7 @@ All colors MUST be HSL.
   img, svg, video, canvas, audio, iframe, embed, object {
     display: block;
     max-width: 100%;
+    height: auto;
   }
 
   /* Use transform and opacity for animations to avoid layout reflows */
@@ -52,6 +53,37 @@ All colors MUST be HSL.
   [data-dynamic] {
     min-height: 1px;
     contain: layout style;
+  }
+
+  /* Optimize font rendering */
+  body {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Reduce animation on slow devices */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Optimize scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* GPU acceleration for transforms */
+  [class*="hover:scale"],
+  [class*="hover:translate"] {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
   }
 }
 
