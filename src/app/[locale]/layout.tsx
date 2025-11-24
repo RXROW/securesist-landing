@@ -6,16 +6,10 @@ import { routing } from "@/i18n/routing";
 import { getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
+import Footer from "@/components/Footer";
+import { ToasterClient } from "@/components/ToasterClient";
 
-// Lazy load Footer
-// const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
-
-// Lazy load ToasterClient
-// const ToasterClient = dynamic(
-//   () => import("@/components/ToasterClient").then(mod => ({ default: mod.ToasterClient })),
-//   { ssr: false } // ToasterClient Client Component
-// );
-
+ 
 // Fonts
 const zainFont = Zain({
   subsets: ["arabic"],
@@ -62,8 +56,8 @@ export default async function LocaleLayout({
       >
         <Navbar />
         {children}
-        {/*<Footer />
-        <ToasterClient /> */}
+        <Footer/>
+        <ToasterClient />
       </div>
     </NextIntlClientProvider>
   );
