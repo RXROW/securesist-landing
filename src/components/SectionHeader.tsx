@@ -21,12 +21,10 @@ export const SectionHeader = memo(function SectionHeader({
         {badgeText}
       </div>
       <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900">
-        {title} {titleHighlight && (
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-            {titleHighlight}
-          </span>
-        )}
-      </h2>
+  {title}&nbsp;<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+    {titleHighlight}
+  </span>
+</h2>
       <p className="mt-4 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
         {description}
       </p>

@@ -1,27 +1,24 @@
 "use client";
 
 import { memo } from "react";
-import { Link, usePathname } from "../i18n/routing";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
+import { usePathname } from "next/navigation";
 import { Menu, Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useIsMobile } from "@/hooks/use-mobile";
 import Image from "next/image";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { Link } from "../i18n/routing";
 
 const Navbar = memo(() => {
   const isMobile = useIsMobile();
   const pathname = usePathname();
+  const locale = useLocale();
   const t = useTranslations("nav");
 
-  // navItems بدون locale prefix هنا، Link هيتعامل مع الـ locale تلقائي
+  const isArabic = locale === "ar";
+
   const navItems = [
     { label: t("home"), href: "/" },
     { label: t("about"), href: "/about" },
@@ -31,13 +28,13 @@ const Navbar = memo(() => {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200/50 bg-white/50 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60">
-      <nav className="container flex h-20 items-center justify-between">
+    <header 
+      className="sticky top-0 z-50 w-full border-b border-slate-200/50 bg-white/50 backdrop-blur-xl supports-[backdrop-filter]:bg-white/60"
+      dir={isArabic ? "rtl" : "ltr"}
+    >
+      <nav className="container flex h-20 items-center justify-between md:justify-evenly">
         {/* Logo */}
-        <Link
-          href="/"
-          className="group flex items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer"
-        >
+        <Link href="/" className="group flex items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer flex-shrink-0">
           <Image src="/logo.png" alt="SecureSist Logo" width={130} height={130} />
         </Link>
 
@@ -46,7 +43,7 @@ const Navbar = memo(() => {
           <div className="flex items-center gap-8">
             <ul className="flex items-center gap-1">
               {navItems.map((item) => {
-                const isActive = pathname === item.href;
+                const isActive = pathname === item.href || pathname === `/ar${item.href}`;
                 return (
                   <li key={item.href}>
                     <Link
@@ -67,7 +64,7 @@ const Navbar = memo(() => {
             <LanguageSwitcher />
 
             {/* CTA Button */}
-            <Link href="/contact">
+            <Link href="/contact" className="flex-shrink-0">
               <Button className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-500 border-0 px-6 py-3 text-sm font-semibold shadow-lg transition-all duration-300 hover:bg-blue-700 hover:shadow-blue-500/25 hover:scale-105">
                 <span className="flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
@@ -87,25 +84,26 @@ const Navbar = memo(() => {
                 variant="outline"
                 size="icon"
                 aria-label="Open menu"
-                className="relative overflow-hidden border-slate-200 bg-white/50 backdrop-blur-sm hover:bg-white"
+                className="relative overflow-hidden border-slate-200 bg-white/50 backdrop-blur-sm hover:bg-white flex-shrink-0"
               >
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
 
             <SheetContent
-              side="right"
-              className="w-80 bg-white/95 backdrop-blur-xl border-l border-slate-200/60"
+              side={isArabic ? "right" : "left"}
+              className="w-80 bg-white/95 backdrop-blur-xl border-slate-200/60"
+              dir={isArabic ? "rtl" : "ltr"}
             >
               <SheetHeader className="border-b border-slate-200/60 pb-4">
-                <SheetTitle className="text-left flex items-center gap-3">
+                <SheetTitle className="flex items-center gap-3">
                   <Image src="/logo.png" alt="SecureSist Logo" width={130} height={130} />
                 </SheetTitle>
               </SheetHeader>
 
               <div className="mt-6 space-y-2">
                 {navItems.map((item) => {
-                  const isActive = pathname === item.href;
+                  const isActive = pathname === item.href || pathname === `/ar${item.href}`;
                   return (
                     <Link href={item.href} key={item.href}>
                       <Button
@@ -123,7 +121,7 @@ const Navbar = memo(() => {
                 <div className="pt-4 border-t border-slate-200/60 space-y-2">
                   <LanguageSwitcher />
                   <Link href="/contact">
-                    <Button className="w-full group relative overflow-hidden bg-blue-600 border-0 font-semibold shadow-lg transition-all duration-300 hover:bg-blue-700 hover:shadow-blue-500/25">
+                    <Button className="w-full group relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-500 border-0 font-semibold shadow-lg transition-all duration-300 hover:bg-blue-700 hover:shadow-blue-500/25">
                       <span className="flex items-center justify-center gap-2">
                         <Sparkles className="h-4 w-4" />
                         {t("getStarted")}

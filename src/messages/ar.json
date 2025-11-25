@@ -14,7 +14,7 @@
     "enterpriseGrade": "مستوى المؤسسات"
   },
   "keyBenefits": {
-    "badge": "لماذا تختار SECURESIST",
+    "badge": "SECURESIST لماذا تختار ",
     "title": "الفوائد",
     "titleHighlight": "الرئيسية",
     "description": "حول تدريب الأمن السيبراني الخاص بك مع نهجنا المبتكر المصمم للقوى العاملة الحديثة",
@@ -47,9 +47,9 @@
     }
   },
   "whyChoose": {
-    "badge": "لماذا تختار SECURESIST",
-    "title": "لماذا تختار",
-    "titleHighlight": "SECURESIST",
+    "badge": "SECURESIST لماذا تختار ",
+    "title": " لماذا ",
+    "titleHighlight": "تختارنا ",
     "description": "اكتشف المزايا التي تميزنا في تدريب الأمن السيبراني",
     "highEngagement": {
       "title": "تفاعل عالي",
