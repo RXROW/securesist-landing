@@ -4,6 +4,15 @@ import createNextIntlPlugin from 'next-intl/plugin';
 const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
+    ],
+  },
   /* config options here */
   // Optimize bundle size
   experimental: {
@@ -12,10 +21,11 @@ const nextConfig: NextConfig = {
   // Enable compression
   compress: true,
   // Optimize images
-  images: {
-    formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 60,
-  },
+  // images: {
+   
+  //   formats: ['image/avif', 'image/webp'],
+  //   minimumCacheTTL: 60,
+  // },
   // Optimize production builds
   // swcMinify: true,
   // Reduce JavaScript bundle size
