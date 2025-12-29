@@ -4,7 +4,8 @@ import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "../../../i18n/routing";
 import Image from "next/image";
-import { Shield, Target, Award, Users, ArrowRight, Zap, Star, Loader2 } from "lucide-react";
+import * as Icons from "lucide-react";
+import { Shield, Target, ArrowRight, Loader2 } from "lucide-react"; // Icons used directly in component
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/SectionHeader";
 import { apiFetch, LandingPageUrl } from "@/helpers/apiConfig";
@@ -16,7 +17,45 @@ interface AboutPageData {
   aboutSection_Description: string;
   aboutSection_ImageUrl: string;
   missionValues_Title: string;
+  value_Card1_Title: string;
+  value_Card1_Description: string;
+  value_Card1_Icon: string;
+  value_Card2_Title: string;
+  value_Card2_Description: string;
+  value_Card2_Icon: string;
+  value_Card3_Title: string;
+  value_Card3_Description: string;
+  value_Card3_Icon: string;
 }
+
+// Helper to convert icon name to PascalCase (e.g., "check-circle" -> "CheckCircle")
+const toPascalCase = (str: string): string => {
+  return str
+    .split(/[-_\s]+/)
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join('');
+};
+
+// Helper to get icon component dynamically from lucide-react
+const getIcon = (iconName: string): React.ComponentType<{ className?: string }> => {
+  if (!iconName) return Shield;
+  
+  // Convert icon name to PascalCase (e.g., "check-circle" -> "CheckCircle", "shield" -> "Shield")
+  const pascalCaseName = toPascalCase(iconName.trim());
+  
+  // Look up the icon in the Icons object
+  const IconComponent = (Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>)[pascalCaseName];
+  
+  // Return the icon if found, otherwise return Shield as fallback
+  return IconComponent || Shield;
+};
+
+// Color schemes for value cards
+const cardColors = [
+  { ring: 'hover:ring-red-600/50', bg: 'bg-red-500/10', text: 'text-red-600' },
+  { ring: 'hover:ring-blue-500/50', bg: 'bg-blue-500/10', text: 'text-blue-600' },
+  { ring: 'hover:ring-purple-500/50', bg: 'bg-purple-500/10', text: 'text-purple-600' },
+];
 
 interface AboutPageResponse {
   status: string;
@@ -136,37 +175,44 @@ const About = () => {
 
               {/* Values Cards */}
               <div className="lg:col-span-2 grid gap-6 md:grid-cols-3">
-                   {/* Value 1: Built by Experts */}
-                   <div className="group rounded-2xl bg-white p-6 shadow-md transition-all duration-300 hover:shadow-lg hover:ring-2 hover:ring-red-600/50">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-500/10 text-red-600">
-                    <Star className="h-6 w-6" />
-                  </div>
-                  <h3 className="mb-2 text-xl font-bold text-slate-900">Empowering Organizations</h3>
-                  <p className="text-slate-600 text-base">
-                    We empower organizations to build a strong security culture through engaging, effective training.
-                  </p>
-                </div>
-                {/* Value 1: Built by Experts */}
-                <div className="group rounded-2xl bg-white p-6 shadow-md transition-all duration-300 hover:shadow-lg hover:ring-2 hover:ring-blue-500/50">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10 text-blue-600">
-                    <Shield className="h-6 w-6" />
-                  </div>
-                  <h3 className="mb-2 text-xl font-bold text-slate-900">Built by Experts</h3>
-                  <p className="text-slate-600 text-base">
-                    Our platform is designed by cybersecurity professionals with deep industry expertise.
-                  </p>
-                </div>
-                
-                {/* Value 2: Employee-Centric */}
-                <div className="group rounded-2xl bg-white p-6 shadow-md transition-all duration-300 hover:shadow-lg hover:ring-2 hover:ring-purple-500/50">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-purple-500/10 text-purple-600">
-                    <Users className="h-6 w-6" />
-                  </div>
-                  <h3 className="mb-2 text-xl font-bold text-slate-900">People-First Approach</h3>
-                  <p className="text-slate-600 text-base">
-                    We believe security training should be engaging, accessible, and empowering for every employee.
-                  </p>
-                </div>
+                {[
+                  {
+                    title: aboutData.value_Card1_Title,
+                    description: aboutData.value_Card1_Description,
+                    icon: aboutData.value_Card1_Icon,
+                    index: 0,
+                  },
+                  {
+                    title: aboutData.value_Card2_Title,
+                    description: aboutData.value_Card2_Description,
+                    icon: aboutData.value_Card2_Icon,
+                    index: 1,
+                  },
+                  {
+                    title: aboutData.value_Card3_Title,
+                    description: aboutData.value_Card3_Description,
+                    icon: aboutData.value_Card3_Icon,
+                    index: 2,
+                  },
+                ].map((card) => {
+                  const Icon = getIcon(card.icon);
+                  const colors = cardColors[card.index] || cardColors[0];
+                  
+                  return (
+                    <div
+                      key={card.index}
+                      className={`group rounded-2xl bg-white p-6 shadow-md transition-all duration-300 hover:shadow-lg hover:ring-2 ${colors.ring}`}
+                    >
+                      <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-full ${colors.bg} ${colors.text}`}>
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <h3 className="mb-2 text-xl font-bold text-slate-900">{card.title}</h3>
+                      <p className="text-slate-600 text-base">
+                        {card.description}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </section>
