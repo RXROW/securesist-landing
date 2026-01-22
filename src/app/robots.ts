@@ -1,20 +1,20 @@
 import { MetadataRoute } from 'next'
 
 // Use environment variable for production domain
-// Make sure to set NEXT_PUBLIC_SITE_URL in your Vercel/Cloudflare environment
-// Example: https://securesist.com
+// Set NEXT_PUBLIC_SITE_URL in your deployment environment
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://securesist.com'
 
 /**
- * Generate robots.txt
+ * Generate clean, standards-compliant robots.txt
  * 
- * This generates a clean, standards-compliant robots.txt file.
+ * Output:
+ * User-agent: *
+ * Allow: /
  * 
- * Note: If you're using Cloudflare, it may add Content-Signal directives
- * automatically, which can cause warnings in Google Search Console.
- * These warnings are non-blocking and don't affect crawling/indexing.
+ * Sitemap: https://securesist.com/sitemap.xml
  * 
- * The generated robots.txt will be accessible at: /robots.txt
+ * Note: Cloudflare may add Content-Signal directives automatically.
+ * To disable this, configure it in Cloudflare Dashboard settings.
  */
 export default function robots(): MetadataRoute.Robots {
   return {
