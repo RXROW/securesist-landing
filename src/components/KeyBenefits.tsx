@@ -41,40 +41,61 @@ export const KeyBenefits = memo(({ data }: KeyBenefitsProps) => {
     return iconMap[iconName] || Users;
   };
   
+  const cardTitles = [
+    data.keyBenefit_Card1_Title,
+    data.keyBenefit_Card2_Title,
+    data.keyBenefit_Card3_Title,
+  ];
+  const cardDescriptions = [
+    data.keyBenefit_Card1_Description,
+    data.keyBenefit_Card2_Description,
+    data.keyBenefit_Card3_Description,
+  ];
+  const cardFeatures = [
+    (data.keyBenefit_Card1_Features ?? "").split(",").map((f) => f.trim()).filter(Boolean),
+    (data.keyBenefit_Card2_Features ?? "").split(",").map((f) => f.trim()).filter(Boolean),
+    (data.keyBenefit_Card3_Features ?? "").split(",").map((f) => f.trim()).filter(Boolean),
+  ];
+  const cardIcons = [
+    data.keyBenefit_Card1_Icon,
+    data.keyBenefit_Card2_Icon,
+    data.keyBenefit_Card3_Icon,
+  ];
+
   const benefits = [
     {
-      icon: getIcon(data.keyBenefit_Card1_Icon),
-      title: data.keyBenefit_Card1_Title,
-      description: data.keyBenefit_Card1_Description,
+      icon: getIcon(cardIcons[0]),
+      title: (cardTitles[0] ?? "").trim() || "Key Benefit 1",
+      description: (cardDescriptions[0] ?? "").trim() || "Benefit description will appear here once content is available.",
       color: "blue",
       gradient: "from-blue-500 to-cyan-500",
       bgGradient: "from-blue-50 to-cyan-50",
       iconBg: "bg-blue-100",
       iconColor: "text-blue-600",
-      features: data.keyBenefit_Card1_Features.split(',').map(f => f.trim())
+      features: cardFeatures[0].length ? cardFeatures[0] : ["Details coming soon"],
     },
     {
-      icon: getIcon(data.keyBenefit_Card2_Icon),
-      title: data.keyBenefit_Card2_Title,
-      description: data.keyBenefit_Card2_Description,
+      icon: getIcon(cardIcons[1]),
+      title: (cardTitles[1] ?? "").trim() || "Key Benefit 2",
+      description: (cardDescriptions[1] ?? "").trim() || "Benefit description will appear here once content is available.",
       color: "purple",
       gradient: "from-purple-500 to-pink-500",
       bgGradient: "from-purple-50 to-pink-50",
       iconBg: "bg-purple-100",
       iconColor: "text-purple-600",
-      features: data.keyBenefit_Card2_Features.split(',').map(f => f.trim())
+      features: cardFeatures[1].length ? cardFeatures[1] : ["Details coming soon"],
     },
     {
-      icon: getIcon(data.keyBenefit_Card3_Icon),
-      title: data.keyBenefit_Card3_Title,
-      description: data.keyBenefit_Card3_Description,
+      icon: getIcon(cardIcons[2]),
+      title: (cardTitles[2] ?? "").trim() || "Key Benefit 3",
+      description: (cardDescriptions[2] ?? "").trim() || "Benefit description will appear here once content is available.",
       color: "green",
       gradient: "from-green-500 to-emerald-500",
       bgGradient: "from-green-50 to-emerald-50",
       iconBg: "bg-green-100",
       iconColor: "text-green-600",
-      features: data.keyBenefit_Card3_Features.split(',').map(f => f.trim())
-    }
+      features: cardFeatures[2].length ? cardFeatures[2] : ["Details coming soon"],
+    },
   ];
 
   return (
@@ -83,10 +104,10 @@ export const KeyBenefits = memo(({ data }: KeyBenefitsProps) => {
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <SectionHeader
-          badgeText={data.keyBenefits_Subtitle}
-          title={data.keyBenefits_Title}
+          badgeText={(data.keyBenefits_Subtitle ?? "").trim() || "Why Us"}
+          title={(data.keyBenefits_Title ?? "").trim() || "Key Benefits"}
           titleHighlight=""
-          description={data.keyBenefits_Description}
+          description={(data.keyBenefits_Description ?? "").trim() || "Discover what makes us the right choice for your security needs."}
         />
         
          

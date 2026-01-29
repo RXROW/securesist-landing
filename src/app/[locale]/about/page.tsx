@@ -29,7 +29,8 @@ interface AboutPageData {
 }
 
 // Helper to convert icon name to PascalCase (e.g., "check-circle" -> "CheckCircle")
-const toPascalCase = (str: string): string => {
+const toPascalCase = (str: string | undefined): string => {
+  if (str == null || typeof str !== "string") return "";
   return str
     .split(/[-_\s]+/)
     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())

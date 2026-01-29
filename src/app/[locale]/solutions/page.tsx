@@ -50,7 +50,8 @@ interface SolutionsPageResponse {
 }
 
 // Helper to convert icon name to PascalCase
-const toPascalCase = (str: string): string => {
+const toPascalCase = (str: string | undefined): string => {
+  if (str == null || typeof str !== "string") return "";
   return str
     .split(/[-_\s]+/)
     .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
@@ -117,7 +118,7 @@ export default function Solutions() {
       title: solutionsData.solution_Card1_Title,
       subtitle: solutionsData.solution_Card1_Subtitle,
       description: solutionsData.solution_Card1_Description,
-      features: solutionsData.solution_Card1_Features.split(',').map(f => f.trim()).filter(Boolean),
+      features: (solutionsData.solution_Card1_Features ?? "").split(",").map((f) => f.trim()).filter(Boolean),
       icon: solutionsData.solution_Card1_Icon,
       image: "/contact_us.jpg",
       styleIndex: 0,
@@ -127,7 +128,7 @@ export default function Solutions() {
       title: solutionsData.solution_Card2_Title,
       subtitle: solutionsData.solution_Card2_Subtitle,
       description: solutionsData.solution_Card2_Description,
-      features: solutionsData.solution_Card2_Features.split(',').map(f => f.trim()).filter(Boolean),
+      features: (solutionsData.solution_Card2_Features ?? "").split(",").map((f) => f.trim()).filter(Boolean),
       icon: solutionsData.solution_Card2_Icon,
       image: "/contact_us.jpg",
       styleIndex: 1,
@@ -137,7 +138,7 @@ export default function Solutions() {
       title: solutionsData.solution_Card3_Title,
       subtitle: solutionsData.solution_Card3_Subtitle,
       description: solutionsData.solution_Card3_Description,
-      features: solutionsData.solution_Card3_Features.split(',').map(f => f.trim()).filter(Boolean),
+      features: (solutionsData.solution_Card3_Features ?? "").split(",").map((f) => f.trim()).filter(Boolean),
       icon: solutionsData.solution_Card3_Icon,
       image: "/contact_us.jpg",
       styleIndex: 2,
@@ -147,7 +148,7 @@ export default function Solutions() {
       title: solutionsData.solution_Card4_Title,
       subtitle: solutionsData.solution_Card4_Subtitle,
       description: solutionsData.solution_Card4_Description,
-      features: solutionsData.solution_Card4_Features.split(',').map(f => f.trim()).filter(Boolean),
+      features: (solutionsData.solution_Card4_Features ?? "").split(",").map((f) => f.trim()).filter(Boolean),
       icon: solutionsData.solution_Card4_Icon,
       image: "/contact_us.jpg",
       styleIndex: 3,

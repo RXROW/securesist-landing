@@ -69,22 +69,42 @@ const Footer = () => {
             <p className="mb-6 text-slate-300 text-sm leading-relaxed">
               {t('description')}
             </p>
-            
+
+            <h3 className="mb-3 text-sm font-semibold text-white uppercase tracking-wider">
+              {t('contactUs')}
+            </h3>
             <div className="space-y-3 text-sm text-slate-300">
               <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 text-blue-400" />
+                <Mail className="h-4 w-4 shrink-0 text-blue-400" />
                 <a href={`mailto:${t('email')}`} className="hover:text-blue-400 transition-colors">
                   {t('email')}
                 </a>
               </div>
-              <div className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-blue-400" />
-                <a href={`tel:${t('phone')}`} className="hover:text-blue-400 transition-colors">
-                  {t('phone')}
-                </a>
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2">
+                  <Phone className="h-4 w-4 shrink-0 text-blue-400" />
+                  <span className="text-slate-400">{t('phoneLabel')}</span>
+                </div>
+                <ul className="space-y-1 pl-6">
+                  <li>
+                    <a href="tel:00971568966556" className="hover:text-blue-400 transition-colors">
+                      {t('phone1')}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="tel:00971503174898" className="hover:text-blue-400 transition-colors">
+                      {t('phone2')}
+                    </a>
+                  </li>
+                  <li>
+                    <a href="tel:0097143309282" className="hover:text-blue-400 transition-colors">
+                      {t('phone3')}
+                    </a>
+                  </li>
+                </ul>
               </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4 text-blue-400" />
+              <div className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 shrink-0 text-blue-400 mt-0.5" />
                 <span>{t('address')}</span>
               </div>
             </div>

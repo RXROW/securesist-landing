@@ -116,9 +116,13 @@
       "api": "API Documentation"
     },
     "copyright": "© {year} SECURESIST. All rights reserved.",
+    "contactUs": "Contact Us",
+    "phoneLabel": "Phone",
     "email": "info@securesist.com",
-    "phone": "+1 (555) 123-4567",
-    "address": "123 Security Street, Tech City, TC 12345"
+    "phone1": "00971568966556",
+    "phone2": "00971503174898",
+    "phone3": "0097143309282",
+    "address": "Aswaaq Community Mall – Al Mizhar – Second Floor – Office Number C09, Makani ID: 7F23+2F Dubai"
   },
   "about": {
     "badge": "About Meta Tech",
