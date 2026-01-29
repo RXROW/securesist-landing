@@ -17,32 +17,14 @@ const Footer = () => {
   const t = useTranslations('footer');
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = {
-    company: [
-      { label: t('company.about'), href: "/about" },
-      { label: t('company.team'), href: "/about" },
-      { label: t('company.careers'), href: "/contact" },
-      { label: t('company.press'), href: "/press-center" },
-    ],
-    solutions: [
-      { label: t('solutions.training'), href: "/solutions" },
-      { label: t('solutions.awareness'), href: "/solutions" },
-      { label: t('solutions.compliance'), href: "/solutions" },
-      { label: t('solutions.risk'), href: "/solutions" },
-    ],
-    resources: [
-      { label: t('resources.blog'), href: "/press-center" },
-      { label: t('resources.caseStudies'), href: "/solutions" },
-      { label: t('resources.whitepapers'), href: "/solutions" },
-      { label: t('resources.webinars'), href: "/solutions" },
-    ],
-    support: [
-      { label: t('support.help'), href: "/contact" },
-      { label: t('support.contact'), href: "/contact" },
-      { label: t('support.training'), href: "/solutions" },
-      { label: t('support.api'), href: "/solutions" },
-    ],
-  };
+  // Only links to pages that exist: /about, /solutions, /partners, /press-center, /contact
+  const quickLinks = [
+    { labelKey: "company.about" as const, href: "/about" },
+    { labelKey: "solutions.title" as const, href: "/solutions" },
+    { labelKey: "partners" as const, href: "/partners" },
+    { labelKey: "company.press" as const, href: "/press-center" },
+    { labelKey: "contactUs" as const, href: "/contact" },
+  ];
 
   const socialLinks = [
     { icon: Facebook, href: "https://www.facebook.com/securesist", label: "Facebook" },
@@ -53,99 +35,85 @@ const Footer = () => {
   
   return (
     <footer className="bg-slate-950 text-slate-50">
-      <div className="container py-12 md:py-16">
-        <div className="grid gap-8 lg:grid-cols-12">
+      <div className="container py-6 md:py-8">
+        <div className="grid gap-5 lg:grid-cols-12 items-start">
           {/* Brand Section */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-block mb-6">
-              <Image 
-                src="/logo.png" 
-                alt="SecureSist Logo" 
-                width={130} 
-                height={130}
+            <Link href="/" className="inline-block mb-3">
+              <Image
+                src="/logo.png"
+                alt="SECURESIST"
+                width={72}
+                height={72}
+                className="h-12 w-auto object-contain"
               />
             </Link>
-            
-            <p className="mb-6 text-slate-300 text-sm leading-relaxed">
-              {t('description')}
+            <p className="mb-4 text-slate-300 text-xs leading-relaxed max-w-sm">
+              {t("description")}
             </p>
-
-            <h3 className="mb-3 text-sm font-semibold text-white uppercase tracking-wider">
-              {t('contactUs')}
+            <h3 className="mb-2 text-[10px] font-semibold text-white uppercase tracking-wider">
+              {t("contactUs")}
             </h3>
-            <div className="space-y-3 text-sm text-slate-300">
+            <div className="space-y-2 text-xs">
               <div className="flex items-center gap-2">
-                <Mail className="h-4 w-4 shrink-0 text-blue-400" />
-                <a href={`mailto:${t('email')}`} className="hover:text-blue-400 transition-colors">
-                  {t('email')}
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-slate-800 text-blue-400">
+                  <Mail className="h-3 w-3" />
+                </span>
+                <a href={`mailto:${t("email")}`} className="text-slate-300 hover:text-blue-400 transition-colors">
+                  {t("email")}
                 </a>
               </div>
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-2">
-                  <Phone className="h-4 w-4 shrink-0 text-blue-400" />
-                  <span className="text-slate-400">{t('phoneLabel')}</span>
+              <div className="flex items-start gap-2">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-slate-800 text-blue-400 mt-0.5">
+                  <Phone className="h-3 w-3" />
+                </span>
+                <div className="flex flex-col gap-0">
+                  <a href="tel:00971568966556" className="text-slate-300 hover:text-blue-400 transition-colors">
+                    {t("phone1")}
+                  </a>
+                  <a href="tel:00971503174898" className="text-slate-300 hover:text-blue-400 transition-colors">
+                    {t("phone2")}
+                  </a>
                 </div>
-                <ul className="space-y-1 pl-6">
-                  <li>
-                    <a href="tel:00971568966556" className="hover:text-blue-400 transition-colors">
-                      {t('phone1')}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="tel:00971503174898" className="hover:text-blue-400 transition-colors">
-                      {t('phone2')}
-                    </a>
-                  </li>
-                  <li>
-                    <a href="tel:0097143309282" className="hover:text-blue-400 transition-colors">
-                      {t('phone3')}
-                    </a>
-                  </li>
-                </ul>
               </div>
               <div className="flex items-start gap-2">
-                <MapPin className="h-4 w-4 shrink-0 text-blue-400 mt-0.5" />
-                <span>{t('address')}</span>
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-slate-800 text-blue-400 mt-0.5">
+                  <MapPin className="h-3 w-3" />
+                </span>
+                <span className="text-slate-300">{t("address")}</span>
               </div>
             </div>
           </div>
 
-          {/* Links Sections */}
+          {/* Quick Links */}
           <div className="lg:col-span-8">
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-              {Object.entries(footerLinks).map(([key, links]) => (
-                <div key={key}>
-                  <h3 className="mb-4 text-sm font-semibold text-white uppercase tracking-wider">
-                    {t(`${key}.title`)}
-                  </h3>
-                  <ul className="space-y-2">
-                    {links.map((link) => (
-                      <li key={link.label}>
-                        <Link 
-                          href={link.href}
-                          className="text-sm text-slate-300 hover:text-blue-400 transition-colors"
-                        >
-                          {link.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+            <h3 className="mb-2 text-[10px] font-semibold text-white uppercase tracking-wider">
+              {t("quickLinks")}
+            </h3>
+            <ul className="flex flex-wrap gap-x-5 gap-y-1 sm:gap-x-6">
+              {quickLinks.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="text-xs text-slate-300 hover:text-blue-400 transition-colors"
+                  >
+                    {t(item.labelKey)}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
           </div>
         </div>
       </div>
 
-      {/* Bottom Footer */}
+      {/* Bottom bar */}
       <div className="border-t border-slate-800">
-        <div className="container py-6">
-          <div className="flex flex-col items-center justify-between gap-4 lg:flex-row">
-            <p className="text-sm text-slate-400">
-              {t('copyright', { year: currentYear })}
+        <div className="container py-3 md:py-4">
+          <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
+            <p className="text-xs text-slate-400 order-2 sm:order-1">
+              {t("copyright", { year: currentYear })}
             </p>
-            
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 order-1 sm:order-2">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -153,9 +121,9 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="h-9 w-9 flex items-center justify-center rounded-lg bg-slate-800 text-slate-300 hover:bg-blue-600 hover:text-white transition-colors"
+                  className="h-7 w-7 flex items-center justify-center rounded bg-slate-800 text-slate-300 hover:bg-blue-600 hover:text-white transition-colors"
                 >
-                  <social.icon className="h-4 w-4" />
+                  <social.icon className="h-3 w-3" />
                 </a>
               ))}
             </div>

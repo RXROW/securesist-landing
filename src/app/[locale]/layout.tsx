@@ -1,14 +1,37 @@
-import { Comfortaa, Zain } from "next/font/google"; 
+import type { Metadata } from "next";
+import { Comfortaa, Zain } from "next/font/google";
 import "./../globals.css";
-import Navbar from "@/components/Navbar"; 
+import Navbar from "@/components/Navbar";
 import { routing } from "../../i18n/routing";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import { ToasterClient } from "@/components/ToasterClient";
 import { QueryProvider } from "@/components/QueryProvider";
- 
+
 import { messages } from "@/messages/messages";
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://securesist.com";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isAr = locale === "ar";
+  return {
+    title: isAr
+      ? "SECURESIST | منصة التوعية بالأمن السيبراني"
+      : "SECURESIST | Cybersecurity Awareness Training",
+    description: isAr
+      ? "حوّل وضع الأمن السيبراني لمؤسستك مع تدريب ذكي قائم على الأدوار يحافظ على تفاعل فريقك وأمانه."
+      : "Transform your organization's cybersecurity posture with intelligent, role-based training that keeps your team engaged and secure.",
+    alternates: {
+      canonical: `${siteUrl}/${locale}`,
+    },
+  };
+}
 
 // Fonts
 const zainFont = Zain({
