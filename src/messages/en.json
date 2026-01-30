@@ -165,9 +165,45 @@
   },
   "solutions": {
     "badge": "Our Solutions",
-    "title": "Comprehensive",
-    "titleHighlight": "Security Solutions",
-    "description": "Protect your organization with our cutting-edge cybersecurity training and simulation platforms designed for the modern workforce",
+    "title": "Solutions",
+    "titleHighlight": "",
+    "description": "Protect your organization with awareness training, simulation attacks, and behavioral insights.",
+    "badgeAwareness": "Awareness",
+    "badgeSimulation": "Simulation",
+    "badgeAnalyze": "Insights",
+    "awareness": {
+      "title": "Cyber Security Awareness Training",
+      "intro": "Cybersecurity isn't just an IT responsibility—it's a shared effort that starts with people. At SECURESIST, our Cyber Security Awareness Training helps employees understand real-world cyber risks and respond with confidence.",
+      "description": "Our training goes beyond generic content. It's interactive, engaging, and tailored to the threats employees actually face: phishing, social engineering, unsafe browsing, and data handling.",
+      "delivers": "SECURESIST delivers awareness training that:",
+      "bullet1": "Educates employees on common and emerging cyber threats",
+      "bullet2": "Encourages secure behavior without disrupting productivity",
+      "bullet3": "Adapts to different roles, departments, and risk levels",
+      "bullet4": "Reinforces learning through continuous training, not one-time sessions",
+      "closing": "By combining short, practical lessons with ongoing reinforcement, SECURESIST helps organizations turn cybersecurity awareness into everyday habits. With SECURESIST Cyber Security Awareness Training, you don't just train employees—you build a strong security culture where people become the first line of defense."
+    },
+    "simulation": {
+      "title": "Employee Attack Simulation",
+      "intro": "Knowing about cyber threats is important; knowing how to respond in real situations is what truly reduces risk. SECURESIST's Employee Simulation Attacks safely test employee behavior by simulating real-world threats in a controlled environment.",
+      "description": "Through realistic phishing emails, social engineering, and other simulated scenarios, SECURESIST helps organizations see how employees react and where vulnerabilities exist. These simulations are about learning and improving—not blaming.",
+      "organizationsCan": "With SECURESIST Employee Simulation Attacks, organizations can:",
+      "bullet1": "Test employee readiness against real-life cyber threats",
+      "bullet2": "Identify high-risk behaviors and knowledge gaps",
+      "bullet3": "Reinforce training through hands-on experience",
+      "bullet4": "Reduce the likelihood of successful attacks in real scenarios",
+      "closing": "Each simulation is followed by immediate feedback and targeted learning. SECURESIST turns simulated attacks into learning moments, helping employees become more aware, prepared, and resilient."
+    },
+    "analyze": {
+      "title": "Analyze Behavior",
+      "intro": "Understanding employee behavior is key to reducing human risk. SECURESIST's Analyze Behavior solution helps organizations move beyond assumptions and gain real insight into how employees interact with security policies, training, and simulated threats.",
+      "description": "By analyzing behavioral patterns across training participation, simulation results, and daily security actions, SECURESIST highlights where risks exist and where improvements are happening.",
+      "organizationsCan": "With SECURESIST Analyze Behavior, organizations can:",
+      "bullet1": "Identify risky behaviors before they lead to incidents",
+      "bullet2": "Measure the effectiveness of awareness and training programs",
+      "bullet3": "Spot trends across teams, roles, or departments",
+      "bullet4": "Prioritize actions based on real behavioral insights",
+      "closing": "The goal isn't surveillance—it's understanding. By turning behavior into insight, SECURESIST enables organizations to reduce insider risk, improve resilience, and build a more security-aware workforce."
+    },
     "solution1": {
       "title": "Cybersecurity Awareness Training",
       "subtitle": "Empower Your Team with Knowledge",
