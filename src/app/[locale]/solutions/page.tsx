@@ -5,7 +5,7 @@ import Link from "next/link";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, Shield, Target, BarChart3 } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 
 const SOLUTION_IMAGES = [
   "/solutions/Cyber%20Security%20Awareness.webp",
@@ -24,6 +24,9 @@ const STYLES = [
 
 export default function Solutions() {
   const t = useTranslations("solutions");
+  const locale = useLocale();
+  const isRtl = locale === "ar";
+  const textAlign = isRtl ? "text-right" : "text-left";
 
   return (
     <main className="min-h-screen bg-white">
@@ -72,13 +75,13 @@ export default function Solutions() {
                       />
                       <div className={`absolute inset-0 bg-gradient-to-t ${style.bg} opacity-20 mix-blend-overlay`} />
                     </div>
-                    <div className={`absolute top-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl ${style.iconBg} ${style.text} shadow-md`}>
+                    <div className={`absolute top-4 flex h-12 w-12 items-center justify-center rounded-xl ${style.iconBg} ${style.text} shadow-md ${isRtl ? "right-4" : "left-4"}`}>
                       <Icon className="h-6 w-6" />
                     </div>
                   </div>
 
                   {/* Content */}
-                  <div className={`space-y-5 ${!isEven ? "lg:order-1" : ""}`}>
+                  <div className={`space-y-5 ${textAlign} ${!isEven ? "lg:order-1" : ""}`}>
                     <span className={`inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider ${style.iconBg} ${style.text}`}>
                       {index + 1}. {t(key === "awareness" ? "badgeAwareness" : key === "simulation" ? "badgeSimulation" : "badgeAnalyze")}
                     </span>
@@ -96,7 +99,7 @@ export default function Solutions() {
                     </p>
                     <ul className="space-y-2">
                       {[1, 2, 3, 4].map((i) => (
-                        <li key={i} className="flex items-start gap-3">
+                        <li key={i} className={`flex items-start gap-3 ${isRtl ? "flex-row-reverse" : ""}`}>
                           <CheckCircle2 className={`mt-0.5 h-5 w-5 shrink-0 ${style.text}`} />
                           <span className="text-slate-700">{t(`${key}.bullet${i}`)}</span>
                         </li>
