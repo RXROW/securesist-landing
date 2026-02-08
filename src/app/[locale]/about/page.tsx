@@ -3,7 +3,15 @@
 import { Link } from "../../../i18n/routing";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Shield, Eye } from "lucide-react";
+import { 
+  ArrowRight, 
+  Shield, 
+  AlertTriangle, 
+  UserX, 
+  Skull, 
+  Settings, 
+  Calendar 
+} from "lucide-react";
 import { useTranslations, useLocale } from "next-intl";
 
 const About = () => {
@@ -12,56 +20,113 @@ const About = () => {
   const isRtl = locale === "ar";
   const textAlign = isRtl ? "text-right" : "text-left";
 
+  const securityStages = [
+    {
+      icon: Shield,
+      title: "New Asset",
+      description: t("stages.newAsset") || "Newly registered domains and assets are monitored for potential security risks before they can be exploited.",
+      color: "blue",
+      bgColor: "bg-blue-100",
+      textColor: "text-blue-600"
+    },
+    {
+      icon: AlertTriangle,
+      title: "Breach",
+      description: t("stages.breach") || "Detect and respond to security breaches, data leaks, and unauthorized access attempts across your digital infrastructure.",
+      color: "red",
+      bgColor: "bg-red-100",
+      textColor: "text-red-600"
+    },
+    {
+      icon: UserX,
+      title: "VIP Impersonation",
+      description: t("stages.vipImpersonation") || "Identify fake accounts and domains impersonating executives, brands, or trusted entities to prevent fraud.",
+      color: "orange",
+      bgColor: "bg-orange-100",
+      textColor: "text-orange-600"
+    },
+    {
+      icon: Skull,
+      title: "Malicious",
+      description: t("stages.malicious") || "Track malicious domains, phishing sites, malware distribution, and other threats targeting your organization.",
+      color: "purple",
+      bgColor: "bg-purple-100",
+      textColor: "text-purple-600"
+    },
+    {
+      icon: Settings,
+      title: "Misconfiguration",
+      description: t("stages.misconfiguration") || "Discover security gaps from DNS misconfigurations, exposed credentials, and vulnerable settings across your assets.",
+      color: "yellow",
+      bgColor: "bg-yellow-100",
+      textColor: "text-yellow-600"
+    },
+    {
+      icon: Calendar,
+      title: "Domain Expired",
+      description: t("stages.domainExpired") || "Monitor expiring domains to prevent hijacking, loss of brand equity, and potential security vulnerabilities.",
+      color: "slate",
+      bgColor: "bg-slate-100",
+      textColor: "text-slate-600"
+    }
+  ];
+
   return (
     <main className="min-h-screen bg-white">
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto px-4 py-16 md:py-24">
           <SectionHeader
-            badgeText={t("badge")}
-            title={t("title")}
-            titleHighlight={t("titleHighlight")}
-            description=""
+            badgeText={t("badge") || "Security Stages"}
+            title={t("title") || "Comprehensive Threat"}
+            titleHighlight={t("titleHighlight") || "Detection & Prevention"}
+            description={t("description") || "Monitor and protect your digital assets across every stage of the threat lifecycle"}
           />
         </div>
       </section>
 
-      {/* Content */}
+      {/* Security Stages Grid */}
       <section className="container mx-auto px-4 pb-16 md:pb-24">
-        <div className={`mx-auto max-w-3xl space-y-12 ${textAlign}`}>
-          {/* Intro - People first */}
-          <div className={`flex gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
-              <Users className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-lg leading-relaxed text-slate-700 md:text-xl">
-                {t("pageIntro")}
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {securityStages.map((stage, index) => {
+              const Icon = stage.icon;
+              return (
+                <div
+                  key={index}
+                  className={`group rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:border-${stage.color}-200 hover:shadow-lg ${textAlign}`}
+                >
+                  <div className={`mb-4 flex items-center gap-3 ${isRtl ? "flex-row-reverse" : ""}`}>
+                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${stage.bgColor} ${stage.textColor} transition-transform group-hover:scale-110`}>
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-slate-900">
+                      {stage.title}
+                    </h3>
+                  </div>
+                  <p className="leading-relaxed text-slate-600">
+                    {stage.description}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="border-t border-slate-200 bg-slate-50/50 py-16 md:py-20">
+        <div className={`container mx-auto px-4 ${textAlign}`}>
+          <div className="mx-auto max-w-3xl">
+            <h2 className="mb-6 text-2xl font-bold text-slate-900 md:text-3xl">
+              {t("howItWorks.title") || "How It Works"}
+            </h2>
+            <div className="space-y-4 text-slate-700">
+              <p className="text-lg leading-relaxed">
+                {t("howItWorks.p1") || "Our platform continuously monitors your digital footprint across all six critical security stages, providing real-time alerts and actionable intelligence."}
               </p>
-            </div>
-          </div>
-
-          {/* Platform - Train, test, understand */}
-          <div className={`rounded-2xl border border-slate-200 bg-slate-50/50 p-6 md:p-8 ${textAlign}`}>
-            <div className={`mb-4 flex items-center gap-2 ${isRtl ? "flex-row-reverse" : ""}`}>
-              <Shield className="h-5 w-5 text-blue-600" />
-              <h2 className="text-lg font-semibold text-slate-900">
-                {t("platformHeading")}
-              </h2>
-            </div>
-            <p className="text-slate-700 leading-relaxed">
-              {t("pagePlatform")}
-            </p>
-          </div>
-
-          {/* Balance - Visibility without fear */}
-          <div className={`flex gap-4 ${isRtl ? "flex-row-reverse" : ""}`}>
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
-              <Eye className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-lg leading-relaxed text-slate-700">
-                {t("pageBalance")}
+              <p className="leading-relaxed">
+                {t("howItWorks.p2") || "From the moment a new asset appears to the critical window of domain expiration, we ensure comprehensive visibility and protection across your entire attack surface."}
               </p>
             </div>
           </div>
@@ -69,20 +134,20 @@ const About = () => {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-slate-200 bg-slate-50/50 py-16 md:py-20">
-        <div className={`container mx-auto px-4 ${textAlign}`}>
+      <section className="border-t border-slate-200 py-16 md:py-20">
+        <div className={`container mx-auto px-4 text-center ${textAlign}`}>
           <h2 className="mb-3 text-2xl font-bold text-slate-900 md:text-3xl">
-            {t("cta.title")}
+            {t("cta.title") || "Ready to Secure Your Assets?"}
           </h2>
-          <p className={`mb-8 max-w-xl text-slate-600 ${isRtl ? "mr-auto ml-0" : "mx-auto"}`}>
-            {t("cta.description")}
+          <p className={`mb-8 ${isRtl ? "mx-auto" : "mx-auto"} max-w-xl text-slate-600`}>
+            {t("cta.description") || "Get started with comprehensive threat monitoring and protection today."}
           </p>
           <Button
             asChild
             className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-6 text-base font-semibold text-white shadow-md transition-all hover:scale-[1.02] hover:shadow-lg"
           >
             <Link href="/contact">
-              {t("cta.button")}
+              {t("cta.button") || "Get Started"}
               <ArrowRight className={`h-5 w-5 transition-transform group-hover:translate-x-1 ${isRtl ? "rotate-180" : ""}`} />
             </Link>
           </Button>

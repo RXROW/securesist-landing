@@ -211,6 +211,19 @@
       "title": "Ready to Get Started?",
       "description": "Join hundreds of organizations that trust SECURESIST for their cybersecurity training needs.",
       "button": "Contact Us"
+    },
+    "stages": {
+      "newAsset": "Newly registered domains and assets are monitored for potential security risks before they can be exploited.",
+      "breach": "Detect and respond to security breaches, data leaks, and unauthorized access attempts across your digital infrastructure.",
+      "vipImpersonation": "Identify fake accounts and domains impersonating executives, brands, or trusted entities to prevent fraud.",
+      "malicious": "Track malicious domains, phishing sites, malware distribution, and other threats targeting your organization.",
+      "misconfiguration": "Discover security gaps from DNS misconfigurations, exposed credentials, and vulnerable settings across your assets.",
+      "domainExpired": "Monitor expiring domains to prevent hijacking, loss of brand equity, and potential security vulnerabilities."
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "p1": "Our platform continuously monitors your digital footprint across all six critical security stages, providing real-time alerts and actionable intelligence.",
+      "p2": "From the moment a new asset appears to the critical window of domain expiration, we ensure comprehensive visibility and protection across your entire attack surface."
     }
   },
   "solutions": {
