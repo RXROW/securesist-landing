@@ -4,11 +4,7 @@ import { BlogPostHero } from "@/components/blog/BlogPostHero";
 import { BlogPostMeta } from "@/components/blog/BlogPostMeta";
 import { BlogContent } from "@/components/blog/BlogContent";
 import { BlogPostCTA } from "@/components/blog/BlogPostCTA";
-import { ArticleSchema } from "@/components/blog/ArticleSchema";
 
-/* =======================
-   Types
-======================= */
 interface BlogAuthor {
   name?: string;
   [key: string]: unknown;
@@ -35,22 +31,18 @@ interface BlogPostResponse {
   message: string;
 }
 
-/* =======================
-   Page
-======================= */
 export default async function BlogPostPage({
   params,
 }: {
   params: Promise<{ slug: string; locale: string }>;
 }) {
-  const { slug, locale } = await params;
+  const { slug } = await params;
 
   let post: BlogPostResponse["data"] | null = null;
 
   try {
     const response = await apiFetch<BlogPostResponse>(
-      BlogsUrl.GET_BLOG_BY_SLUG(slug),
-      { cache: "no-store" }
+      BlogsUrl.GET_BLOG_BY_SLUG(slug)
     );
     if (response?.status === "success" && response?.data) {
       post = response.data;
@@ -63,43 +55,25 @@ export default async function BlogPostPage({
     notFound();
   }
 
-  const safePost = {
-    title: typeof post.title === "string" ? post.title : "",
-    slug: typeof post.slug === "string" ? post.slug : slug,
-    metaDescription: typeof post.metaDescription === "string" ? post.metaDescription : post.title ?? "",
-    coverImage: post.coverImage ?? null,
-    content: typeof post.content === "string" ? post.content : "",
-    category: typeof post.category === "string" ? post.category : "Blog",
-    createdAt: typeof post.createdAt === "string" ? post.createdAt : new Date().toISOString(),
-    updatedAt: typeof post.updatedAt === "string" ? post.updatedAt : new Date().toISOString(),
-    readingTime: typeof post.readingTime === "number" ? post.readingTime : 0,
-  };
-
   return (
     <main className="min-h-screen bg-white">
-      <ArticleSchema
-        title={safePost.title}
-        description={safePost.metaDescription || safePost.title}
-        slug={safePost.slug}
-        locale={locale}
-        image={safePost.coverImage}
-        datePublished={safePost.createdAt}
-        dateModified={safePost.updatedAt}
-      />
       <BlogPostHero
-        coverImage={safePost.coverImage}
-        title={safePost.title}
-        category={safePost.category}
+        coverImage={post.coverImage ?? null}
+        title={String(post.title ?? "")}
+        category={String(post.category ?? "Blog")}
       />
 
       <article className="py-16">
         <div className="max-w-4xl mx-auto px-4">
           <BlogPostMeta
-            createdAt={safePost.createdAt}
-            readingTime={safePost.readingTime}
+            createdAt={String(post.createdAt ?? "")}
+            readingTime={Number(post.readingTime) || 0}
           />
 
-          <BlogContent content={safePost.content} articleTitle={safePost.title} />
+          <BlogContent
+            content={String(post.content ?? "")}
+            articleTitle={String(post.title ?? "")}
+          />
 
           <BlogPostCTA />
         </div>

@@ -59,6 +59,11 @@ interface BlogContentProps {
  */
 const MAX_CONTENT_LENGTH = 400_000;
 
+/** Remove script tags only; used as fallback if DOMPurify throws on server. */
+function stripScripts(html: string): string {
+  return html.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "");
+}
+
 export function BlogContent({ content, articleTitle = "" }: BlogContentProps) {
   const rawContent = typeof content === "string" ? content : "";
   const safeTitle = typeof articleTitle === "string" ? articleTitle : "";
@@ -74,7 +79,7 @@ export function BlogContent({ content, articleTitle = "" }: BlogContentProps) {
       cleanHtml = processImgTags(cleanHtml, safeTitle);
     }
   } catch {
-    cleanHtml = "";
+    cleanHtml = stripScripts(rawContent.trim().slice(0, MAX_CONTENT_LENGTH));
   }
 
   return (
