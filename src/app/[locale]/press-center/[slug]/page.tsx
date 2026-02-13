@@ -49,44 +49,57 @@ export default async function BlogPostPage({
 
   try {
     const response = await apiFetch<BlogPostResponse>(
-      BlogsUrl.GET_BLOG_BY_SLUG(slug)
+      BlogsUrl.GET_BLOG_BY_SLUG(slug),
+      { cache: "no-store" }
     );
     if (response?.status === "success" && response?.data) {
       post = response.data;
     }
-  } catch (error) {
-    console.error("Error fetching blog post:", error);
+  } catch {
+    notFound();
   }
 
   if (!post) {
     notFound();
   }
 
+  const safePost = {
+    title: typeof post.title === "string" ? post.title : "",
+    slug: typeof post.slug === "string" ? post.slug : slug,
+    metaDescription: typeof post.metaDescription === "string" ? post.metaDescription : post.title ?? "",
+    coverImage: post.coverImage ?? null,
+    content: typeof post.content === "string" ? post.content : "",
+    category: typeof post.category === "string" ? post.category : "Blog",
+    createdAt: typeof post.createdAt === "string" ? post.createdAt : new Date().toISOString(),
+    updatedAt: typeof post.updatedAt === "string" ? post.updatedAt : new Date().toISOString(),
+    readingTime: typeof post.readingTime === "number" ? post.readingTime : 0,
+  };
+
   return (
     <main className="min-h-screen bg-white">
       <ArticleSchema
-        title={post.title}
-        description={post.metaDescription || post.title}
-        slug={post.slug}
+        title={safePost.title}
+        description={safePost.metaDescription || safePost.title}
+        slug={safePost.slug}
         locale={locale}
-        image={post.coverImage}
-        datePublished={post.createdAt}
-        dateModified={post.updatedAt}
+        image={safePost.coverImage}
+        datePublished={safePost.createdAt}
+        dateModified={safePost.updatedAt}
       />
       <BlogPostHero
-        coverImage={post.coverImage}
-        title={post.title}
-        category={post.category}
+        coverImage={safePost.coverImage}
+        title={safePost.title}
+        category={safePost.category}
       />
 
       <article className="py-16">
         <div className="max-w-4xl mx-auto px-4">
           <BlogPostMeta
-            createdAt={post.createdAt}
-            readingTime={post.readingTime}
+            createdAt={safePost.createdAt}
+            readingTime={safePost.readingTime}
           />
 
-          <BlogContent content={post.content} articleTitle={post.title} />
+          <BlogContent content={safePost.content} articleTitle={safePost.title} />
 
           <BlogPostCTA />
         </div>

@@ -57,14 +57,17 @@ interface BlogContentProps {
  * Note: For best performance (Core Web Vitals), in-content images should use
  * URLs (e.g. Cloudinary) rather than base64 data URIs; base64 inflates HTML size.
  */
+const MAX_CONTENT_LENGTH = 400_000;
+
 export function BlogContent({ content, articleTitle = "" }: BlogContentProps) {
   const rawContent = typeof content === "string" ? content : "";
   const safeTitle = typeof articleTitle === "string" ? articleTitle : "";
+  const toSanitize = rawContent.trim().slice(0, MAX_CONTENT_LENGTH);
 
   let cleanHtml = "";
   try {
-    if (rawContent.trim()) {
-      cleanHtml = DOMPurify.sanitize(rawContent.trim(), {
+    if (toSanitize) {
+      cleanHtml = DOMPurify.sanitize(toSanitize, {
         ALLOWED_TAGS,
         ALLOWED_ATTR,
       });

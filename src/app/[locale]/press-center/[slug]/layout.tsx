@@ -23,7 +23,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug, locale } = await params;
   try {
     const response = await apiFetch<BlogPostResponse>(
-      BlogsUrl.GET_BLOG_BY_SLUG(slug)
+      BlogsUrl.GET_BLOG_BY_SLUG(slug),
+      { cache: "no-store" }
     );
     if (response?.status === "success" && response?.data) {
       const d = response.data;
