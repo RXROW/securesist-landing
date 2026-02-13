@@ -6,7 +6,7 @@ const ALLOWED_TAGS = [
   "ul", "ol", "li", "a", "img",
   "blockquote", "code", "pre", "span", "div",
 ];
-const ALLOWED_ATTR = ["href", "src", "alt", "title", "class", "style", "loading"];
+const ALLOWED_ATTR = ["href", "src", "alt", "title", "class", "style", "loading", "rel", "target"];
 
 function escapeHtmlAttr(s: string): string {
   return s

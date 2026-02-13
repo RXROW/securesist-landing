@@ -1,7 +1,7 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { Link } from "@/i18n/routing";
+import { useQuery } from "@tanstack/react-query"; 
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -82,6 +82,7 @@ const isVideoUrl = (url: string | null): boolean => {
 };
 
 export default function BlogPage() {
+  const locale = useLocale();
   const {
     data: blogPosts = [],
     isLoading: loading,
@@ -205,10 +206,10 @@ export default function BlogPage() {
                       {featuredPost.excerpt}
                     </CardDescription>
                     <Button asChild className="group w-fit bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                      <Link href={`/press-center/${featuredPost.slug}`} className="flex items-center gap-2">
+                      <a href={`/${locale}/press-center/${featuredPost.slug}`} className="flex items-center gap-2">
                         Read Full Article
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                      </Link>
+                      </a>
                     </Button>
                   </div>
                 </div>
@@ -283,13 +284,13 @@ export default function BlogPage() {
                   <CardContent>
                     <div className="flex items-center justify-end">
                       <Button asChild variant="ghost" size="sm" className="group/btn">
-                        <Link
-                          href={`/press-center/${post.slug}`}
+                        <a
+                          href={`/${locale}/press-center/${post.slug}`}
                           className="flex items-center gap-1 text-blue-600"
                         >
                           Read
                           <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-                        </Link>
+                        </a>
                       </Button>
                     </div>
                   </CardContent>
