@@ -5,6 +5,7 @@ import { BlogPostMeta } from "@/components/blog/BlogPostMeta";
 import { BlogContent } from "@/components/blog/BlogContent";
 import { BlogPostCTA } from "@/components/blog/BlogPostCTA";
 import { ArticleSchema } from "@/components/blog/ArticleSchema";
+import { Metadata } from "next";
 
 interface BlogAuthor {
   name?: string;
@@ -30,6 +31,67 @@ interface BlogPostResponse {
     updatedAt: string;
   };
   message: string;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string; locale: string }>;
+}): Promise<Metadata> {
+  const { slug, locale } = await params;
+
+  try {
+    const response = await apiFetch<BlogPostResponse>(
+      BlogsUrl.GET_BLOG_BY_SLUG(slug)
+    );
+
+    if (response?.status === "success" && response?.data) {
+      const post = response.data;
+      const baseUrl = "https://securesist.com";
+      const url = `${baseUrl}/${locale}/press-center/${post.slug}`;
+      const imageUrl = post.coverImage || `${baseUrl}/og-default.png`;
+
+      return {
+        title: post.metaTitle,
+        description: post.metaDescription,
+        keywords: post.keywords,
+        openGraph: {
+          type: "article",
+          title: post.metaTitle,
+          description: post.metaDescription,
+          url: url,
+          siteName: "SECURESIST",
+          images: [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: post.title,
+            },
+          ],
+          locale: locale === "en" ? "en_US" : "ar_EG",
+          publishedTime: post.createdAt,
+          modifiedTime: post.updatedAt,
+          authors: ["SECURESIST"],
+        },
+        twitter: {
+          card: "summary_large_image",
+          title: post.metaTitle,
+          description: post.metaDescription,
+          images: [imageUrl],
+          creator: "@securesist",
+          site: "@securesist",
+        },
+      };
+    }
+  } catch {
+    // Return default metadata if fetch fails
+  }
+
+  return {
+    title: "Blog Post | SECURESIST",
+    description: "Read our latest cybersecurity insights and updates.",
+  };
 }
 
 export default async function BlogPostPage({
