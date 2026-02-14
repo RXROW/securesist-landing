@@ -20,13 +20,57 @@ const About = () => {
   const isRtl = locale === "ar";
   const textAlign = isRtl ? "text-right" : "text-left";
 
+  // Breadcrumb Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: locale === "ar" ? "الرئيسية" : "Home",
+        item: `https://securesist.com/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: locale === "ar" ? "من نحن" : "About",
+        item: `https://securesist.com/${locale}/about`,
+      },
+    ],
+  };
+
+  // Organization Schema
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "SECURESIST",
+    url: "https://securesist.com",
+    logo: "https://securesist.com/logo.png",
+    description:
+      "Transform your organization's cybersecurity posture with intelligent, role-based training that keeps your team engaged and secure.",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+971-568-966556",
+      contactType: "Customer Service",
+      areaServed: ["AE", "EG", "US"],
+      availableLanguage: ["en", "ar"],
+    },
+    sameAs: [
+      "https://www.facebook.com/people/SecureSist/61587328047197/",
+      "https://www.instagram.com/securesist/",
+      "https://www.youtube.com/@SecureSist",
+      "https://www.linkedin.com/company/securesist/",
+    ],
+  };
+
   const securityStages = [
     {
       icon: Shield,
       title: "New Training Campaign",
       description:
         t("stages.newTrainingCampaign") ||
-        "Launch and track new awareness campaigns (phishing, password hygiene, data handling) with targeted audiences and timelines. تتم مراقبة النطاقات والأصول المسجلة حديثاً للكشف عن مخاطر الأمان المحتملة قبل أن يتم استغلالها.",
+        "Launch and track new awareness campaigns (phishing, password hygiene, data handling) with targeted audiences and timelines.",
       color: "blue",
       bgColor: "bg-blue-100",
       textColor: "text-blue-600"
@@ -36,7 +80,7 @@ const About = () => {
       title: "Policy & Compliance",
       description:
         t("stages.policyCompliance") ||
-        "Manage policies, attestations, and required controls (ISO 27001, NIST, PCI DSS, NCA, etc.) to stay audit-ready. اكتشف الثغرات الأمنية الناتجة عن سوء تكوين DNS وبيانات الاعتماد المكشوفة والإعدادات الضعيفة عبر أصولك.",
+        "Manage policies, attestations, and required controls (ISO 27001, NIST, PCI DSS, NCA, etc.) to stay audit-ready.",
       color: "yellow",
       bgColor: "bg-yellow-100",
       textColor: "text-yellow-600" 
@@ -46,7 +90,7 @@ const About = () => {
       title: "Executive / VIP Protection",
       description:
         t("stages.executiveVIPProtection") ||
-        "Special training and controls for executives and high-risk roles to reduce BEC, impersonation, and fraud exposure. حدد الحسابات والنطاقات المزيفة التي تنتحل صفة المسؤولين التنفيذيين أو العلامات التجارية أو الجهات الموثوقة لمنع الاحتيال.",
+        "Special training and controls for executives and high-risk roles to reduce BEC, impersonation, and fraud exposure.",
       color: "orange",
       bgColor: "bg-orange-100",
       textColor: "text-orange-600"
@@ -56,7 +100,7 @@ const About = () => {
       title: "Phishing & Social Engineering",
       description:
         t("stages.phishingSocialEngineering") ||
-        "Run simulations and monitor user behavior to reduce click rates and improve reporting culture across the organization. اكتشف واستجب لخروقات الأمان وتسريب البيانات ومحاولات الوصول غير المصرح به عبر بنيتك التحتية الرقمية.",
+        "Run simulations and monitor user behavior to reduce click rates and improve reporting culture across the organization.",
       color: "red",
       bgColor: "bg-red-100",
       textColor: "text-red-600"
@@ -66,7 +110,7 @@ const About = () => {
       title: "Risk & Control Gaps",
       description:
         t("stages.riskControlGaps") ||
-        "Identify gaps from assessments, control testing, and exceptions—then assign owners, actions, and due dates. تتبع النطاقات الضارة ومواقع التصيد الاحتيالي وتوزيع البرامج الضارة والتهديدات الأخرى التي تستهدف مؤسستك.",
+        "Identify gaps from assessments, control testing, and exceptions—then assign owners, actions, and due dates.",
       color: "purple",
       bgColor: "bg-purple-100",
       textColor: "text-purple-600"
@@ -76,7 +120,7 @@ const About = () => {
       title: "Audit Evidence & Reporting",
       description:
         t("stages.auditEvidenceReporting") ||
-        "Centralize evidence collection, generate compliance reports, and track remediation status for internal and external audits. راقب النطاقات منتهية الصلاحية لمنع الاختطاف وفقدان قيمة العلامة التجارية ونقاط الضعف الأمنية المحتملة.",
+        "Centralize evidence collection, generate compliance reports, and track remediation status for internal and external audits.",
       color: "slate",
       bgColor: "bg-slate-100",
       textColor: "text-slate-600"
@@ -84,88 +128,104 @@ const About = () => {
   ];
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <SectionHeader
-            badgeText={t("badge") || "Security Stages"}
-            title={t("title") || "Comprehensive Threat"}
-            titleHighlight={t("titleHighlight") || "Detection & Prevention"}
-            description={t("description") || "Monitor and protect your digital assets across every stage of the threat lifecycle"}
-          />
-        </div>
-      </section>
+    <>
+      {/* Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationSchema),
+        }}
+      />
 
-      {/* Security Stages Grid */}
-      <section className="container mx-auto px-4 pb-16 md:pb-24">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {securityStages.map((stage, index) => {
-              const Icon = stage.icon;
-              return (
-                <div
-                  key={index}
-                  className={`group rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:border-${stage.color}-200 hover:shadow-lg ${textAlign}`}
-                >
-                  <div className={`mb-4 flex items-center gap-3 ${isRtl ? "flex-row-reverse" : ""}`}>
-                    <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${stage.bgColor} ${stage.textColor} transition-transform group-hover:scale-110`}>
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-slate-900">
-                      {stage.title}
-                    </h3>
-                  </div>
-                  <p className="leading-relaxed text-slate-600">
-                    {stage.description}
-                  </p>
-                </div>
-              );
-            })}
+      <main className="min-h-screen bg-white">
+        {/* Hero */}
+        <section className="relative overflow-hidden bg-gradient-to-b from-slate-50 to-white">
+          <div className="container mx-auto px-4 py-16 md:py-24">
+            <SectionHeader
+              badgeText={t("badge") || "About Us"}
+              title={t("title") || "About"}
+              titleHighlight={t("titleHighlight") || "Us"}
+              description={t("description") || "At Meta Techs, we recognize that the greatest defense against cyber threats is your people. We are dedicated to providing the tools and knowledge necessary to transform every employee into an active defender."}
+            />
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* How It Works */}
-      <section className="border-t border-slate-200 bg-slate-50/50 py-16 md:py-20">
-        <div className={`container mx-auto px-4 ${textAlign}`}>
-          <div className="mx-auto max-w-3xl">
-            <h2 className="mb-6 text-2xl font-bold text-slate-900 md:text-3xl">
-              {t("howItWorks.title") || "How It Works"}
-            </h2>
-            <div className="space-y-4 text-slate-700">
-              <p className="text-lg leading-relaxed">
-                {t("howItWorks.p1") || "Our platform continuously monitors your digital footprint across all six critical security stages, providing real-time alerts and actionable intelligence."}
-              </p>
-              <p className="leading-relaxed">
-                {t("howItWorks.p2") || "From the moment a new asset appears to the critical window of domain expiration, we ensure comprehensive visibility and protection across your entire attack surface."}
-              </p>
+        {/* Security Stages Grid */}
+        <section className="container mx-auto px-4 pb-16 md:pb-24">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {securityStages.map((stage, index) => {
+                const Icon = stage.icon;
+                return (
+                  <div
+                    key={index}
+                    className={`group rounded-2xl border border-slate-200 bg-white p-6 transition-all hover:border-${stage.color}-200 hover:shadow-lg ${textAlign}`}
+                  >
+                    <div className={`mb-4 flex items-center gap-3 ${isRtl ? "flex-row-reverse" : ""}`}>
+                      <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl ${stage.bgColor} ${stage.textColor} transition-transform group-hover:scale-110`}>
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <h3 className="text-lg font-semibold text-slate-900">
+                        {stage.title}
+                      </h3>
+                    </div>
+                    <p className="leading-relaxed text-slate-600">
+                      {stage.description}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section className="border-t border-slate-200 py-16 md:py-20">
-        <div className={`container mx-auto px-4 text-center `}>
-          <h2 className="mb-3 text-2xl font-bold text-slate-900 md:text-3xl">
-            {t("cta.title") || "Ready to Secure Your Assets?"}
-          </h2>
-          <p className={`mb-8 ${isRtl ? "mx-auto" : "mx-auto"} max-w-xl text-slate-600`}>
-            {t("cta.description") || "Get started with comprehensive threat monitoring and protection today."}
-          </p>
-          <Button
-            asChild
-            className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-6 text-base font-semibold text-white shadow-md transition-all hover:scale-[1.02] hover:shadow-lg"
-          >
-            <Link href="/contact">
-              {t("cta.button") || "Get Started"}
-              <ArrowRight className={`h-5 w-5 transition-transform group-hover:translate-x-1 ${isRtl ? "rotate-180" : ""}`} />
-            </Link>
-          </Button>
-        </div>
-      </section>
-    </main>
+        {/* How It Works */}
+        <section className="border-t border-slate-200 bg-slate-50/50 py-16 md:py-20">
+          <div className={`container mx-auto px-4 ${textAlign}`}>
+            <div className="mx-auto max-w-3xl">
+              <h2 className="mb-6 text-2xl font-bold text-slate-900 md:text-3xl">
+                {t("howItWorks.title") || "How It Works"}
+              </h2>
+              <div className="space-y-4 text-slate-700">
+                <p className="text-lg leading-relaxed">
+                  {t("howItWorks.p1") || "Our platform continuously monitors your digital footprint across all six critical security stages, providing real-time alerts and actionable intelligence."}
+                </p>
+                <p className="leading-relaxed">
+                  {t("howItWorks.p2") || "From the moment a new asset appears to the critical window of domain expiration, we ensure comprehensive visibility and protection across your entire attack surface."}
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="border-t border-slate-200 py-16 md:py-20">
+          <div className={`container mx-auto px-4 text-center `}>
+            <h2 className="mb-3 text-2xl font-bold text-slate-900 md:text-3xl">
+              {t("cta.title") || "Ready to Get Started?"}
+            </h2>
+            <p className={`mb-8 ${isRtl ? "mx-auto" : "mx-auto"} max-w-xl text-slate-600`}>
+              {t("cta.description") || "Join hundreds of organizations that trust SECURESIST for their cybersecurity training needs."}
+            </p>
+            <Button
+              asChild
+              className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-6 text-base font-semibold text-white shadow-md transition-all hover:scale-[1.02] hover:shadow-lg"
+            >
+              <Link href="/contact">
+                {t("cta.button") || "Contact Us"}
+                <ArrowRight className={`h-5 w-5 transition-transform group-hover:translate-x-1 ${isRtl ? "rotate-180" : ""}`} />
+              </Link>
+            </Button>
+          </div>
+        </section>
+      </main>
+    </>
   );
 };
 
